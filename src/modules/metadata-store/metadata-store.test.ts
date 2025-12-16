@@ -12,7 +12,7 @@ describe('PostgresMetadataStore', () => {
     database: process.env.PG_TEST_DATABASE || 'image_hospital_test',
     host: process.env.PG_HOST || 'localhost',
     port: parseInt(process.env.PG_PORT || '5432'),
-    user: process.env.PG_USER || 'postgres',
+    user: process.env.PG_USER || process.env.USER || 'postgres',
     password: process.env.PG_PASSWORD || '',
   };
 
@@ -159,7 +159,7 @@ describe('DB-agnostic MetadataStore interface', () => {
     database: process.env.PG_TEST_DATABASE || 'image_hospital_test',
     host: process.env.PG_HOST || 'localhost',
     port: parseInt(process.env.PG_PORT || '5432'),
-    user: process.env.PG_USER || 'postgres',
+    user: process.env.PG_USER || process.env.USER || 'postgres',
     password: process.env.PG_PASSWORD || '',
   };
 

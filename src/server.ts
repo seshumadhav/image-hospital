@@ -13,7 +13,7 @@ async function main() {
       host: process.env.PG_HOST || 'localhost',
       port: parseInt(process.env.PG_PORT || '5432'),
       database: process.env.PG_DATABASE || 'image_hospital',
-      user: process.env.PG_USER || 'postgres',
+      user: process.env.PG_USER || process.env.USER || 'postgres',
       password: process.env.PG_PASSWORD || '',
       connectionString: process.env.DATABASE_URL,
     },
