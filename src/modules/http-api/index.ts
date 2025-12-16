@@ -12,24 +12,47 @@ import {
   UploadDependencies,
   UploadRequest,
   UploadValidationError,
-  BlobStorage,
+  BlobStorage as UploadBlobStorage,
   BlobStorageSaveOptions,
   TokenService,
 } from '../upload-orchestration';
+import {
+  accessImage,
+  ImageAccessDependencies,
+  BlobStorage as AccessBlobStorage,
+} from '../image-access-orchestration';
 import { generateToken } from '../token-service';
+
+type CombinedBlobStorage = UploadBlobStorage & AccessBlobStorage;
 
 export interface HttpServerConfig {
   port?: number;
   metadataStoreConfig?: MetadataStoreConfig;
 }
 
-class InMemoryBlobStorage implements BlobStorage {
-  // Simple in-memory blobRef generator; does not persist to disk.
-  async save(_data: Buffer, _options: BlobStorageSaveOptions): Promise<string> {
-    if (typeof crypto.randomUUID === 'function') {
-      return `mem:${crypto.randomUUID()}`;
+class InMemoryBlobStorage implements CombinedBlobStorage {
+  private store = new Map<string, { data: Buffer; contentType?: string }>();
+
+  async save(data: Buffer, options: BlobStorageSaveOptions): Promise<string> {
+    const id =
+      typeof crypto.randomUUID === 'function'
+        ? `mem:${crypto.randomUUID()}`
+        : `mem:${crypto.randomBytes(16).toString('hex')}`;
+
+    this.store.set(id, { data, contentType: options.contentType });
+    return id;
+  }
+
+  async get(blobRef: string): Promise<Buffer> {
+    const entry = this.store.get(blobRef);
+    if (!entry) {
+      throw new Error('Blob not found');
     }
-    return `mem:${crypto.randomBytes(16).toString('hex')}`;
+    return entry.data;
+  }
+
+  getContentType(blobRef: string): string | undefined {
+    return this.store.get(blobRef)?.contentType;
   }
 }
 
@@ -38,6 +61,7 @@ export class HttpServer {
   private metadataStore: MetadataStore;
   private port: number;
   private uploadDeps: UploadDependencies;
+  private imageAccessDeps: ImageAccessDependencies;
 
   constructor(config: HttpServerConfig = {}) {
     this.port = config.port || parseInt(process.env.PORT || '3000');
@@ -45,8 +69,10 @@ export class HttpServer {
     // Initialize metadata store - fail fast if initialization fails
     this.metadataStore = createMetadataStore(config.metadataStoreConfig);
 
+    // Initialize shared blob storage implementation (in-memory)
+    const blobStorage: CombinedBlobStorage = new InMemoryBlobStorage();
+
     // Initialize upload orchestration dependencies
-    const blobStorage: BlobStorage = new InMemoryBlobStorage();
     const tokenService: TokenService = {
       generateToken,
     };
@@ -55,6 +81,12 @@ export class HttpServer {
       blobStorage,
       metadataStore: this.metadataStore,
       tokenService,
+    };
+
+    // Initialize image access orchestration dependencies
+    this.imageAccessDeps = {
+      metadataStore: this.metadataStore,
+      blobStorage,
     };
 
     this.server = http.createServer(this.handleRequest.bind(this));
@@ -81,9 +113,59 @@ export class HttpServer {
       return;
     }
 
+    // Image access endpoint: GET /image/:token
+    if (req.method === 'GET' && path.startsWith('/image/')) {
+      this.handleImage(req, res);
+      return;
+    }
+
     // 404 for all other routes
     res.writeHead(404);
     res.end(JSON.stringify({ error: 'Not found' }));
+  }
+
+  private handleImage(req: http.IncomingMessage, res: http.ServerResponse): void {
+    const url = req.url || '/';
+    const path = url.split('?', 1)[0];
+    const prefix = '/image/';
+
+    const token = path.startsWith(prefix) ? path.slice(prefix.length) : '';
+    if (!token) {
+      res.writeHead(404);
+      res.end(JSON.stringify({ error: 'Not found' }));
+      return;
+    }
+
+    (async () => {
+      try {
+        const result = await accessImage(token, this.imageAccessDeps);
+
+        if (!result.allowed) {
+          // Deny access consistently as 404
+          res.writeHead(404);
+          res.end(JSON.stringify({ error: 'Not found' }));
+          return;
+        }
+
+        // Successful access: return the image bytes
+        // Try to use the original content type if available, otherwise default
+        let contentType = 'application/octet-stream';
+        if (this.uploadDeps.blobStorage instanceof InMemoryBlobStorage) {
+          const ct = this.uploadDeps.blobStorage.getContentType(result.metadata.blobRef);
+          if (ct) {
+            contentType = ct;
+          }
+        }
+
+        // Override JSON content type for this response
+        res.setHeader('Content-Type', contentType);
+        res.writeHead(200);
+        res.end(result.blob);
+      } catch {
+        res.writeHead(500);
+        res.end(JSON.stringify({ error: 'Internal server error' }));
+      }
+    })();
   }
 
   private handleUpload(req: http.IncomingMessage, res: http.ServerResponse): void {
