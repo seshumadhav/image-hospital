@@ -24,9 +24,9 @@ describe('TokenService', () => {
       const lengths = tokens.map(t => t.length);
       const uniqueLengths = new Set(lengths);
       
-      // All tokens should have the same length (43 chars for 32 bytes base64url)
+      // All tokens should have the same length (8 chars for alphanumeric)
       expect(uniqueLengths.size).toBe(1);
-      expect(lengths[0]).toBe(43);
+      expect(lengths[0]).toBe(8);
     });
 
     it('should generate unique tokens across many generations', () => {
@@ -50,40 +50,28 @@ describe('TokenService', () => {
   });
 
   describe('token format and character set', () => {
-    it('should generate tokens using only URL-safe characters', () => {
+    it('should generate tokens using only alphanumeric characters', () => {
       const tokens = Array.from({ length: 1000 }, () => generateToken());
       
-      // Base64url alphabet: A-Z, a-z, 0-9, -, _
-      const urlSafePattern = /^[A-Za-z0-9_-]+$/;
+      // Alphanumeric only: A-Z, a-z, 0-9
+      const alphanumericPattern = /^[A-Za-z0-9]+$/;
       
       tokens.forEach(token => {
-        expect(token).toMatch(urlSafePattern);
+        expect(token).toMatch(alphanumericPattern);
       });
     });
 
-    it('should not contain base64 padding characters', () => {
+    it('should not contain special characters', () => {
       const tokens = Array.from({ length: 1000 }, () => generateToken());
       
       tokens.forEach(token => {
-        expect(token).not.toContain('=');
+        expect(token).not.toMatch(/[^A-Za-z0-9]/);
       });
     });
 
-    it('should not contain base64 unsafe characters', () => {
-      const tokens = Array.from({ length: 1000 }, () => generateToken());
-      
-      tokens.forEach(token => {
-        expect(token).not.toContain('+');
-        expect(token).not.toContain('/');
-      });
-    });
-
-    it('should have correct length for 32 bytes base64url encoding', () => {
-      // 32 bytes = 256 bits
-      // Base64 encoding: 32 * 4/3 = 42.67, rounds up to 43 chars
-      // Base64url without padding: 43 characters
+    it('should have correct length (8 characters)', () => {
       const token = generateToken();
-      expect(token.length).toBe(43);
+      expect(token.length).toBe(8);
     });
   });
 
@@ -164,7 +152,7 @@ describe('TokenService', () => {
       // Deterministic check: verify no fixed pattern at any position
       // If there was a fixed pattern (e.g., all tokens have 'A' at position 0),
       // we'd see only 1 unique character at that position
-      for (let pos = 0; pos < 43; pos++) {
+      for (let pos = 0; pos < 8; pos++) {
         const charsAtPos = tokens.map(t => t[pos]);
         const uniqueCharsAtPos = new Set(charsAtPos);
         
@@ -180,20 +168,17 @@ describe('TokenService', () => {
   });
 
   describe('entropy validation', () => {
-    it('should generate tokens with sufficient entropy (>=128 bits)', () => {
-      // We use 32 bytes = 256 bits, which is well above 128 bits
-      // Verify by checking token length: 43 chars base64url = 256 bits
+    it('should generate tokens with sufficient entropy', () => {
+      // We use 8 bytes (6 + 2) = 64 bits of random data
+      // Encoded as 8 alphanumeric characters (62 options each)
+      // This provides 62^8 = ~218 trillion possible combinations
       const token = generateToken();
       
-      // 43 characters of base64url = 43 * 6 bits = 258 bits (with padding removed)
-      // Actually: 32 bytes * 8 bits = 256 bits
-      // Base64url encoding: ceil(256/6) = 43 characters
-      // Each character represents ~6 bits, so 43 chars = ~258 bits
-      expect(token.length).toBe(43);
+      expect(token.length).toBe(8);
       
       // Verify we're using crypto.randomBytes which provides cryptographically secure randomness
-      // The length check ensures we have at least 128 bits (would need at least 22 chars)
-      expect(token.length).toBeGreaterThanOrEqual(22);
+      // 8 characters of alphanumeric provides good entropy for short-lived tokens
+      expect(token.length).toBeGreaterThanOrEqual(6);
     });
 
     it('should fail loudly if token length changes unexpectedly', () => {
@@ -202,10 +187,10 @@ describe('TokenService', () => {
       
       // If this assertion fails, token generation has changed
       // and we need to verify entropy is still sufficient
-      expect(token.length).toBe(43);
+      expect(token.length).toBe(8);
       
       // Document the expected entropy
-      // 43 chars base64url = 43 * 6 = 258 bits (well above 128 bit minimum)
+      // 8 chars alphanumeric = 62^8 = ~218 trillion combinations
     });
   });
 
