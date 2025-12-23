@@ -59,8 +59,9 @@ export const App: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      // Call backend directly to avoid any proxy issues
-      const res = await fetch('http://localhost:3000/upload', {
+      // Use environment variable for API URL, fallback to localhost for dev
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -107,7 +108,7 @@ export const App: React.FC = () => {
   return (
     <div className="page">
       <header className="page-header">
-        <h1 className="page-heading">Grey Ward</h1>
+        <h1 className="page-heading">The Grey Ward</h1>
         <p className="page-caption">Temporary image hosting with automatic expiration</p>
       </header>
       <main className="page-content">
