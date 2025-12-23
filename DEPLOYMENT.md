@@ -29,27 +29,14 @@ This guide will help you deploy the Image Hospital app to AWS with a free subdom
 
 ---
 
-## Step 2: Get a Free Subdomain
+## Step 2: Get a Free Subdomain ✅
 
-Choose one of these free subdomain services:
+**Status: COMPLETED**
 
-### Option A: DuckDNS (Recommended - Easiest)
-1. Go to https://www.duckdns.org/
-2. Sign in with GitHub/Google
-3. Create a subdomain (e.g., `image-hospital.duckdns.org`)
-4. Note your token (you'll need it later)
+- ✅ Subdomain secured: `thegreyward.duckdns.org` (DuckDNS)
+- This will be used for both frontend and backend
 
-### Option B: Freenom (Free TLD like .tk, .ml)
-1. Go to https://www.freenom.com/
-2. Register a free domain (e.g., `imagehospital.tk`)
-3. You'll use this domain for both frontend and backend
-
-### Option C: No-IP
-1. Go to https://www.noip.com/
-2. Create free account
-3. Create a hostname (e.g., `image-hospital.ddns.net`)
-
-**Action**: Choose one option and get your subdomain. Then proceed to Step 3.
+**Next**: Proceed to Step 3.
 
 ---
 
@@ -113,6 +100,33 @@ Choose one of these free subdomain services:
 
 ---
 
+## Domain Configuration
+
+**Domain**: `thegreyward.duckdns.org` (DuckDNS)
+
+### Route 53 vs DuckDNS
+
+**Option A: Use DuckDNS (FREE - Recommended for $0 budget)**
+- ✅ Completely free
+- ✅ Already set up
+- ✅ Works with AWS (point to CloudFront/EC2 IPs)
+- ⚠️ Less control, manual updates needed
+- ⚠️ DuckDNS updates via API (can be automated)
+
+**Option B: Use Route 53 (PAID - Better integration)**
+- ✅ Better AWS integration
+- ✅ Automatic health checks
+- ✅ More professional setup
+- ✅ Better for production
+- ❌ Costs ~$0.50/month per hosted zone + $0.40 per million queries
+- ❌ Need to transfer domain management
+
+**Recommendation**: Start with **DuckDNS** (free). You can always migrate to Route 53 later if needed.
+
+**Planned Setup with DuckDNS**:
+- Frontend: `https://thegreyward.duckdns.org` → Point to CloudFront distribution
+- Backend API: `https://api.thegreyward.duckdns.org` → Point to EC2 public IP (or use `/api/*` path)
+
 ## Next Steps (After Step 5)
 
 Once you complete Step 5, I'll provide:
@@ -120,8 +134,8 @@ Once you complete Step 5, I'll provide:
 - Step 7: Deploy backend to EC2
 - Step 8: Set up S3 bucket for frontend
 - Step 9: Deploy frontend to S3 + CloudFront
-- Step 10: Configure DNS and domain
-- Step 11: Set up SSL/HTTPS (free with CloudFront)
+- Step 10: Configure DNS and domain (point DuckDNS to AWS resources)
+- Step 11: Set up SSL/HTTPS (free with CloudFront and Let's Encrypt)
 
 **Ready for Step 5?** Let me know when you've created the EC2 instance and I'll guide you through the next steps!
 

@@ -1,0 +1,14 @@
+{
+  "domain": "thegreyward.duckdns.org",
+  "provider": "DuckDNS",
+  "frontend": {
+    "url": "https://thegreyward.duckdns.org",
+    "description": "Main frontend URL"
+  },
+  "backend": {
+    "url": "https://api.thegreyward.duckdns.org",
+    "description": "Backend API URL (alternative: use subdomain or /api path)"
+  },
+  "notes": "Domain secured via DuckDNS. Will be configured to point to AWS resources (S3+CloudFront for frontend, EC2 for backend)"
+}
+

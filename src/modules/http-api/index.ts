@@ -22,43 +22,20 @@ import {
   BlobStorage as AccessBlobStorage,
 } from '../image-access-orchestration';
 import { generateToken } from '../token-service';
+import { createBlobStorage, BlobStorage, BlobStorageConfig } from '../blob-storage';
 
 type CombinedBlobStorage = UploadBlobStorage & AccessBlobStorage;
 
 export interface HttpServerConfig {
   port?: number;
   metadataStoreConfig?: MetadataStoreConfig;
-}
-
-class InMemoryBlobStorage implements CombinedBlobStorage {
-  private store = new Map<string, { data: Buffer; contentType?: string }>();
-
-  async save(data: Buffer, options: BlobStorageSaveOptions): Promise<string> {
-    const id =
-      typeof crypto.randomUUID === 'function'
-        ? `mem:${crypto.randomUUID()}`
-        : `mem:${crypto.randomBytes(16).toString('hex')}`;
-
-    this.store.set(id, { data, contentType: options.contentType });
-    return id;
-  }
-
-  async get(blobRef: string): Promise<Buffer> {
-    const entry = this.store.get(blobRef);
-    if (!entry) {
-      throw new Error('Blob not found');
-    }
-    return entry.data;
-  }
-
-  getContentType(blobRef: string): string | undefined {
-    return this.store.get(blobRef)?.contentType;
-  }
+  blobStorageConfig?: BlobStorageConfig;
 }
 
 export class HttpServer {
   private server: http.Server;
   private metadataStore: MetadataStore;
+  private blobStorage: BlobStorage;
   private port: number;
   private uploadDeps: UploadDependencies;
   private imageAccessDeps: ImageAccessDependencies;
@@ -69,8 +46,8 @@ export class HttpServer {
     // Initialize metadata store - fail fast if initialization fails
     this.metadataStore = createMetadataStore(config.metadataStoreConfig);
 
-    // Initialize shared blob storage implementation (in-memory)
-    const blobStorage: CombinedBlobStorage = new InMemoryBlobStorage();
+    // Initialize blob storage (filesystem by default, configurable)
+    this.blobStorage = createBlobStorage(config.blobStorageConfig);
 
     // Initialize upload orchestration dependencies
     const tokenService: TokenService = {
@@ -78,7 +55,7 @@ export class HttpServer {
     };
 
     this.uploadDeps = {
-      blobStorage,
+      blobStorage: this.blobStorage,
       metadataStore: this.metadataStore,
       tokenService,
     };
@@ -86,7 +63,7 @@ export class HttpServer {
     // Initialize image access orchestration dependencies
     this.imageAccessDeps = {
       metadataStore: this.metadataStore,
-      blobStorage,
+      blobStorage: this.blobStorage,
     };
 
     this.server = http.createServer(this.handleRequest.bind(this));
@@ -150,8 +127,8 @@ export class HttpServer {
         // Successful access: return the image bytes
         // Try to use the original content type if available, otherwise default
         let contentType = 'application/octet-stream';
-        if (this.uploadDeps.blobStorage instanceof InMemoryBlobStorage) {
-          const ct = this.uploadDeps.blobStorage.getContentType(result.metadata.blobRef);
+        if (this.blobStorage.getContentType) {
+          const ct = await this.blobStorage.getContentType(result.metadata.blobRef);
           if (ct) {
             contentType = ct;
           }

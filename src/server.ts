@@ -3,19 +3,28 @@
  */
 
 import { createHttpServer } from './modules/http-api';
+import { loadConfig } from './config';
 
 async function main() {
   console.log('Starting image-hospital server...');
   
+  // Load configuration from config.json (environment variables override file values)
+  const config = loadConfig();
+  
   const server = await createHttpServer({
-    port: parseInt(process.env.PORT || '3000'),
+    port: config.server.port,
     metadataStoreConfig: {
-      host: process.env.PG_HOST || 'localhost',
-      port: parseInt(process.env.PG_PORT || '5432'),
-      database: process.env.PG_DATABASE || 'image_hospital',
-      user: process.env.PG_USER || process.env.USER || 'postgres',
-      password: process.env.PG_PASSWORD || '',
-      connectionString: process.env.DATABASE_URL,
+      host: config.database.host,
+      port: config.database.port,
+      database: config.database.database,
+      user: config.database.user,
+      password: config.database.password,
+      connectionString: config.database.connectionString,
+    },
+    blobStorageConfig: {
+      storage: config.blobStorage.storage,
+      local: config.blobStorage.local,
+      s3: config.blobStorage.s3,
     },
   });
 
