@@ -14,7 +14,7 @@ This guide deploys everything on a single EC2 instance - simplest possible setup
 
 - AWS EC2 instance (t2.micro, free tier)
 - EC2 key pair (.pem file)
-- Domain: `thegreyward.duckdns.org` (already secured)
+- Domain: `thegreyward.duckdns.org` (already secured - user-facing domain)
 
 ---
 
@@ -22,7 +22,7 @@ This guide deploys everything on a single EC2 instance - simplest possible setup
 
 1. AWS Console → EC2 → Launch Instance
 2. Configure:
-   - **Name**: `thegreyward-server`
+   - **Name**: `image-hospital-server`
    - **AMI**: Amazon Linux 2023
    - **Instance type**: `t2.micro` (free tier)
    - **Key pair**: Create/download .pem file
@@ -162,7 +162,7 @@ npm run build
 
 ```bash
 # Create Nginx configuration
-sudo tee /etc/nginx/conf.d/thegreyward.conf << 'EOF'
+sudo tee /etc/nginx/conf.d/image-hospital.conf << 'EOF'
 server {
     listen 80;
     server_name thegreyward.duckdns.org;
@@ -223,7 +223,7 @@ sudo systemctl start nginx
 cd /home/ec2-user/image-hospital
 
 # Start backend with PM2
-pm2 start dist/server.js --name "image-hospital-api"
+pm2 start dist/server.js --name "image-hospital"
 
 # Save PM2 configuration
 pm2 save
@@ -305,7 +305,7 @@ npm run build
 cd ..
 
 # Restart backend
-pm2 restart image-hospital-api
+pm2 restart image-hospital
 
 # Restart Nginx
 sudo systemctl restart nginx
@@ -317,7 +317,7 @@ sudo systemctl restart nginx
 
 **Check backend logs:**
 ```bash
-pm2 logs image-hospital-api
+pm2 logs image-hospital
 ```
 
 **Check Nginx logs:**
