@@ -36,7 +36,8 @@ export const App: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const res = await fetch('/upload', {
+      // Call backend directly to avoid any proxy issues
+      const res = await fetch('http://localhost:3000/upload', {
         method: 'POST',
         body: formData,
       });
