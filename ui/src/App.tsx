@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getRandomImage, getRandomQuote } from './artData';
 
 type UploadState = 'idle' | 'uploading' | 'success' | 'error';
 
@@ -13,6 +14,28 @@ export const App: React.FC = () => {
   const [response, setResponse] = useState<UploadResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [artImage, setArtImage] = useState<string>('');
+  const [quote, setQuote] = useState<{ text: string; author: string } | null>(null);
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Load abstract art and quote on initial page load
+    setArtImage(getRandomImage());
+    getRandomQuote().then(setQuote);
+  }, []);
+
+  // Update preview when file is selected
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFilePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setFilePreview(null);
+    }
+  }, [file]);
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selected = event.target.files?.[0] ?? null;
@@ -83,8 +106,12 @@ export const App: React.FC = () => {
 
   return (
     <div className="page">
-      <h1 className="page-heading">Grey Ward</h1>
-      <div className="card">
+      <header className="page-header">
+        <h1 className="page-heading">Grey Ward</h1>
+        <p className="page-caption">Temporary image hosting with automatic expiration</p>
+      </header>
+      <main className="page-content">
+        <div className="card">
         <p className="subtitle">
           Upload your image.
           <br />
@@ -109,6 +136,30 @@ export const App: React.FC = () => {
             {state === 'uploading' ? 'Uploading…' : 'Upload'}
           </button>
         </form>
+
+        <div className="art-section">
+          {filePreview ? (
+            // Show file preview when a file is selected
+            <div className="abstract-art">
+              <img src={filePreview} alt="Preview" className="art-image" />
+            </div>
+          ) : (
+            // Show abstract art and quote when no file is selected
+            <>
+              {artImage && (
+                <div className="abstract-art">
+                  <img src={artImage} alt="Abstract art" className="art-image" />
+                </div>
+              )}
+              {quote && (
+                <div className="quote-container">
+                  <p className="quote">"{quote.text}"</p>
+                  <p className="quote-author">— {quote.author}</p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
 
         {state === 'success' && response && (
           <div className="result">
@@ -182,7 +233,8 @@ export const App: React.FC = () => {
             <p>{error}</p>
           </div>
         )}
-      </div>
+        </div>
+      </main>
     </div>
   );
 };
