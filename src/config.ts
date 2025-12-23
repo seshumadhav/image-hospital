@@ -38,6 +38,7 @@ export interface AppConfig {
   server: ServerConfig;
   database: DatabaseConfig;
   blobStorage: BlobStorageConfig;
+  supportedFileTypes: string;
 }
 
 /**
@@ -96,6 +97,7 @@ export function loadConfig(): AppConfig {
         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || fileConfig.blobStorage?.s3?.secretAccessKey || '',
       },
     },
+    supportedFileTypes: process.env.SUPPORTED_FILE_TYPES || fileConfig.supportedFileTypes || 'jpeg,jpg,png,webp',
   };
 
   return config;

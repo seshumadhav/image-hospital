@@ -30,6 +30,7 @@ export interface HttpServerConfig {
   port?: number;
   metadataStoreConfig?: MetadataStoreConfig;
   blobStorageConfig?: BlobStorageConfig;
+  supportedFileTypes?: string;
 }
 
 export class HttpServer {
@@ -58,6 +59,7 @@ export class HttpServer {
       blobStorage: this.blobStorage,
       metadataStore: this.metadataStore,
       tokenService,
+      supportedFileTypes: config.supportedFileTypes,
     };
 
     // Initialize image access orchestration dependencies

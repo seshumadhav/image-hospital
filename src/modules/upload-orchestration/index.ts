@@ -59,15 +59,52 @@ export interface UploadDependencies {
    * Defaults to Date.now().
    */
   now?: () => number;
+  /**
+   * Supported file types (comma-separated, e.g., "jpeg,jpg,png,webp").
+   * Defaults to "jpeg,jpg,png,webp" if not provided.
+   */
+  supportedFileTypes?: string;
 }
 
-/** Supported image MIME types */
-const SUPPORTED_IMAGE_TYPES = new Set<string>([
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/webp',
-]);
+/**
+ * Parse supported file types string into a Set of MIME types.
+ * 
+ * @param fileTypes - Comma-separated file types (e.g., "jpeg,jpg,png,webp")
+ * @returns Set of MIME types (e.g., Set(['image/jpeg', 'image/png', ...]))
+ */
+function parseSupportedFileTypes(fileTypes: string): Set<string> {
+  const types = new Set<string>();
+  const parts = fileTypes.split(',').map(s => s.trim().toLowerCase()).filter(s => s.length > 0);
+  
+  for (const part of parts) {
+    // Map common file extensions to MIME types
+    switch (part) {
+      case 'jpeg':
+      case 'jpg':
+        types.add('image/jpeg');
+        break;
+      case 'png':
+        types.add('image/png');
+        break;
+      case 'gif':
+        types.add('image/gif');
+        break;
+      case 'webp':
+        types.add('image/webp');
+        break;
+      default:
+        // If it's already a MIME type, use it as-is
+        if (part.startsWith('image/')) {
+          types.add(part);
+        } else {
+          // Try to construct MIME type
+          types.add(`image/${part}`);
+        }
+    }
+  }
+  
+  return types;
+}
 
 /** Maximum allowed image size in bytes (e.g., 5 MiB) */
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
@@ -82,7 +119,7 @@ export class UploadValidationError extends Error {
   }
 }
 
-function validateUploadInput(input: UploadRequest): void {
+function validateUploadInput(input: UploadRequest, supportedImageTypes: Set<string>): void {
   if (!input || !(input.data instanceof Buffer)) {
     throw new UploadValidationError('Invalid image data');
   }
@@ -99,7 +136,7 @@ function validateUploadInput(input: UploadRequest): void {
     throw new UploadValidationError('contentType is required');
   }
 
-  if (!SUPPORTED_IMAGE_TYPES.has(input.contentType)) {
+  if (!supportedImageTypes.has(input.contentType)) {
     throw new UploadValidationError(`Unsupported image contentType: ${input.contentType}`);
   }
 }
@@ -116,8 +153,12 @@ export async function uploadImage(
   input: UploadRequest,
   deps: UploadDependencies,
 ): Promise<UploadResult> {
+  // Get supported file types from config or use defaults
+  const supportedFileTypesStr = deps.supportedFileTypes || 'jpeg,jpg,png,webp';
+  const supportedImageTypes = parseSupportedFileTypes(supportedFileTypesStr);
+
   // 1. Validate input
-  validateUploadInput(input);
+  validateUploadInput(input, supportedImageTypes);
 
   const { blobStorage, metadataStore, tokenService } = deps;
   const nowFn = deps.now ?? Date.now;

@@ -21,6 +21,7 @@
       "accessKeyId": "",
       "secretAccessKey": ""
     }
-  }
+  },
+  "supportedFileTypes": "jpeg,jpg,png,webp"
 }
 

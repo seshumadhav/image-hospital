@@ -26,6 +26,7 @@ async function main() {
       local: config.blobStorage.local,
       s3: config.blobStorage.s3,
     },
+    supportedFileTypes: config.supportedFileTypes,
   });
 
   // Handle graceful shutdown

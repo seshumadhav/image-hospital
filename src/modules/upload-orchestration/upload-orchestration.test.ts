@@ -41,6 +41,7 @@ describe('uploadImage', () => {
       metadataStore,
       tokenService,
       now: () => FIXED_NOW,
+      supportedFileTypes: 'jpeg,jpg,png,webp', // Default supported types for tests
     };
 
     return { blobStorage, metadataStore, tokenService, deps };

@@ -73,6 +73,12 @@ This file is **not** committed to git (it's in `.gitignore`) so you can safely s
 - `s3.accessKeyId`: AWS access key ID
 - `s3.secretAccessKey`: AWS secret access key
 
+### Supported File Types
+
+- `supportedFileTypes`: Comma-separated list of supported image file types (default: "jpeg,jpg,png,webp")
+  - Examples: `"jpeg,jpg,png"`, `"png,webp"`, `"jpeg,png"`
+  - Supported extensions: `jpeg`, `jpg`, `png`, `gif`, `webp`
+
 ## Environment Variables Override
 
 Environment variables can override config file values (useful for deployment):
@@ -90,6 +96,7 @@ Environment variables can override config file values (useful for deployment):
 - `S3_REGION` - AWS region
 - `S3_ACCESS_KEY_ID` - AWS access key
 - `S3_SECRET_ACCESS_KEY` - AWS secret key
+- `SUPPORTED_FILE_TYPES` - Supported file types (e.g., "jpeg,jpg,png,webp")
 
 ## Examples
 
