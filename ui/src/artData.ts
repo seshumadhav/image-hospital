@@ -2,9 +2,9 @@
 // Images stored locally in public/images/
 // Quotes loaded from public/quotes.txt
 
-// Get list of available abstract images (1-20)
+// Get list of available abstract images (1-70)
 export const getRandomImage = (): string => {
-  const imageNum = Math.floor(Math.random() * 20) + 1;
+  const imageNum = Math.floor(Math.random() * 70) + 1;
   return `/images/abstract-${imageNum}.jpg`;
 };
 
