@@ -83,4 +83,83 @@ Behavior:
 
 You can click the URL to open the image in your browser (served via `GET /image/:token`).
 
+## Testing
+
+### Local Testing
+
+**1. Start the backend:**
+```bash
+npm run dev
+```
+The backend will start on `http://localhost:3000`
+
+**2. Start the frontend (in a new terminal):**
+```bash
+cd ui
+npm run dev
+```
+The frontend will start on `http://localhost:5173`
+
+**3. Test the application:**
+- Open `http://localhost:5173` in your browser
+- Upload an image using the UI
+- Verify the image URL is returned and works
+- Test the clipboard copy button
+
+**4. Test endpoints directly:**
+```bash
+# Health check
+curl http://localhost:3000/health
+
+# Upload an image (replace path/to/image.jpg with your image)
+curl -X POST -F "file=@path/to/image.jpg" http://localhost:3000/upload
+
+# Access uploaded image (replace TOKEN with token from upload response)
+curl http://localhost:3000/image/TOKEN
+```
+
+### Production Testing (EC2)
+
+**1. Deploy updates:**
+```bash
+# On EC2 instance
+cd /home/ec2-user/image-hospital
+./deploy.sh
+```
+
+**2. Test the application:**
+- Open `http://YOUR_EC2_IP` or `http://your-domain.com` in your browser
+- Upload an image using the UI
+- Verify the image URL is returned and works
+- Test the clipboard copy button
+
+**3. Test endpoints directly:**
+```bash
+# Health check
+curl http://YOUR_EC2_IP/api/health
+
+# Upload an image
+curl -X POST -F "file=@path/to/image.jpg" http://YOUR_EC2_IP/api/upload
+
+# Access uploaded image (replace TOKEN with token from upload response)
+curl http://YOUR_EC2_IP/image/TOKEN
+```
+
+**4. Quick test script (run from your local machine):**
+```bash
+# Replace YOUR_EC2_IP with your actual EC2 public IP
+EC2_IP="3.235.226.64"  # Update this
+
+echo "=== Testing Frontend ==="
+curl -s -o /dev/null -w "Status: %{http_code}\n" http://$EC2_IP
+
+echo -e "\n=== Testing Health Check ==="
+curl -s http://$EC2_IP/api/health
+
+echo -e "\n=== Testing Upload Endpoint ==="
+curl -s -X POST -F "file=@/dev/null" http://$EC2_IP/api/upload
+
+echo -e "\n✅ Tests complete"
+```
+
 
