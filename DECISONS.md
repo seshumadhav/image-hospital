@@ -8,3 +8,6 @@
 - Metadata must be durable and shared across instances.
 - Local filesystem is used for image storage in this iteration.
 - UI must be minimal and monochrome.
+- If a database is used, Postgres is the default choice.
+- Metadata-store interfaces must be database-agnostic.
+- **Future**: Use AWS RDS PostgreSQL instead of local PostgreSQL on EC2 for production deployments (better reliability, automatic backups, easier scaling).
