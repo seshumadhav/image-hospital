@@ -59,9 +59,13 @@ export const App: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      // API URL configuration:
-      // - VITE_API_URL: Explicit API URL (e.g., "http://localhost:3000" for dev, "/api" for relative, or full URL)
-      // - If not set: Use "/api" in production (relative, works with any host), "http://localhost:3000" in dev
+      // API URL configuration (configurable via VITE_API_URL environment variable):
+      // - Production: Use VITE_API_URL if set, otherwise "/api" (relative, works with any host/IP)
+      // - Development: Use VITE_API_URL if set, otherwise "http://localhost:3000"
+      // Examples:
+      //   - VITE_API_URL=/api (relative, recommended for production)
+      //   - VITE_API_URL=http://thegreyward.duckdns.org/api (absolute with domain)
+      //   - VITE_API_URL=http://localhost:3000 (direct backend, for dev)
       const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000');
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
