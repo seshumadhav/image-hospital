@@ -135,6 +135,8 @@ cd /home/ec2-user/image-hospital
 
 **3. Test endpoints directly:**
 ```bash
+# Replace YOUR_EC2_IP with your actual EC2 public IP (e.g., 3.235.226.64)
+
 # Health check
 curl http://YOUR_EC2_IP/api/health
 
@@ -145,21 +147,34 @@ curl -X POST -F "file=@path/to/image.jpg" http://YOUR_EC2_IP/api/upload
 curl http://YOUR_EC2_IP/image/TOKEN
 ```
 
-**4. Quick test script (run from your local machine):**
+**4. Quick test commands (run from your local machine):**
 ```bash
-# Replace YOUR_EC2_IP with your actual EC2 public IP
-EC2_IP="3.235.226.64"  # Update this
+# Replace with your actual EC2 public IP
+EC2_IP="3.235.226.64"
 
-echo "=== Testing Frontend ==="
+# Test frontend
 curl -s -o /dev/null -w "Status: %{http_code}\n" http://$EC2_IP
 
-echo -e "\n=== Testing Health Check ==="
+# Test health check
 curl -s http://$EC2_IP/api/health
 
-echo -e "\n=== Testing Upload Endpoint ==="
+# Test upload endpoint (will return error for empty file, but confirms endpoint works)
 curl -s -X POST -F "file=@/dev/null" http://$EC2_IP/api/upload
 
-echo -e "\n✅ Tests complete"
+# Test with actual image file
+curl -s -X POST -F "file=@/path/to/your/image.jpg" http://$EC2_IP/api/upload
+```
+
+**Example with actual EC2 IP:**
+```bash
+# Frontend status
+curl -s -o /dev/null -w "Status: %{http_code}\n" http://3.235.226.64
+
+# Health check
+curl http://3.235.226.64/api/health
+
+# Upload test
+curl -X POST -F "file=@/path/to/image.jpg" http://3.235.226.64/api/upload
 ```
 
 
