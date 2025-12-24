@@ -35,14 +35,19 @@ export class PostgresMetadataStore implements MetadataStore {
    *                 Defaults to localhost with standard PostgreSQL settings
    */
   constructor(config: PostgresConfig = {}) {
-    this.pool = new Pool({
-      host: config.host || process.env.PG_HOST || 'localhost',
-      port: config.port || parseInt(process.env.PG_PORT || '5432'),
-      database: config.database || process.env.PG_DATABASE || 'image_hospital',
-      user: config.user || process.env.PG_USER || 'postgres',
-      password: config.password || process.env.PG_PASSWORD || '',
-      connectionString: config.connectionString || process.env.DATABASE_URL,
-    });
+    // Only use connectionString if it's actually provided (not empty string)
+    const connectionString = config.connectionString || process.env.DATABASE_URL;
+    const poolConfig: any = connectionString && connectionString.trim() !== ''
+      ? { connectionString }
+      : {
+          host: config.host || process.env.PG_HOST || 'localhost',
+          port: config.port || parseInt(process.env.PG_PORT || '5432'),
+          database: config.database || process.env.PG_DATABASE || 'image_hospital',
+          user: config.user || process.env.PG_USER || 'postgres',
+          password: config.password || process.env.PG_PASSWORD || '',
+        };
+    
+    this.pool = new Pool(poolConfig);
 
     // Initialize schema asynchronously
     this.schemaInitialized = this.initializeSchema();

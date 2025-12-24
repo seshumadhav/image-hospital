@@ -81,7 +81,7 @@ export function loadConfig(): AppConfig {
         '5432'
       ),
       database: process.env.PG_DATABASE || fileConfig.database?.database || 'image_hospital',
-      user: process.env.PG_USER || process.env.USER || fileConfig.database?.user || 'postgres',
+      user: process.env.PG_USER || fileConfig.database?.user || process.env.USER || 'postgres',
       password: process.env.PG_PASSWORD || fileConfig.database?.password || '',
       connectionString: process.env.DATABASE_URL || fileConfig.database?.connectionString || '',
     },
