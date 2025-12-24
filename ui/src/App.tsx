@@ -134,12 +134,43 @@ export const App: React.FC = () => {
 
   const handleCopyUrl = async () => {
     if (!response?.url) return;
+    
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(response.url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        return;
+      } catch (err) {
+        console.warn('Clipboard API failed, trying fallback:', err);
+      }
+    }
+    
+    // Fallback: Use execCommand for older browsers or HTTP sites
     try {
-      await navigator.clipboard.writeText(response.url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      const textArea = document.createElement('textarea');
+      textArea.value = response.url;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      if (successful) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        console.error('execCommand copy failed');
+        alert('Failed to copy URL. Please select and copy manually.');
+      }
     } catch (err) {
-      console.error('Failed to copy:', err);
+      console.error('Fallback copy failed:', err);
+      alert('Failed to copy URL. Please select and copy manually.');
     }
   };
 
