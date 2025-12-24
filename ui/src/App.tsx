@@ -8,6 +8,12 @@ interface UploadResponse {
   expiresAtEpochMs: number;
 }
 
+interface FrontendConfig {
+  frontend?: {
+    apiUrl?: string;
+  };
+}
+
 export const App: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [state, setState] = useState<UploadState>('idle');
@@ -17,6 +23,30 @@ export const App: React.FC = () => {
   const [artImage, setArtImage] = useState<string>('');
   const [quote, setQuote] = useState<{ text: string; author: string } | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [apiUrl, setApiUrl] = useState<string>('');
+
+  // Load configuration from config.json
+  useEffect(() => {
+    const loadConfig = async () => {
+      try {
+        const response = await fetch('/config.json');
+        const config: FrontendConfig = await response.json();
+        // Use config.json apiUrl if available, otherwise fallback to defaults
+        const configuredApiUrl = config.frontend?.apiUrl;
+        if (configuredApiUrl) {
+          setApiUrl(configuredApiUrl);
+        } else {
+          // Fallback: Use VITE_API_URL env var or defaults
+          setApiUrl(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000'));
+        }
+      } catch (error) {
+        console.warn('Failed to load config.json, using defaults:', error);
+        // Fallback: Use VITE_API_URL env var or defaults
+        setApiUrl(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000'));
+      }
+    };
+    loadConfig();
+  }, []);
 
   useEffect(() => {
     // Load abstract art and quote on initial page load
@@ -51,6 +81,13 @@ export const App: React.FC = () => {
       return;
     }
 
+    // Wait for config to load before making request
+    if (!apiUrl) {
+      setError('Configuration not loaded yet. Please try again.');
+      setState('error');
+      return;
+    }
+
     setState('uploading');
     setError(null);
     setResponse(null);
@@ -59,14 +96,7 @@ export const App: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      // API URL configuration (configurable via VITE_API_URL environment variable):
-      // - Production: Use VITE_API_URL if set, otherwise "/api" (relative, works with any host/IP)
-      // - Development: Use VITE_API_URL if set, otherwise "http://localhost:3000"
-      // Examples:
-      //   - VITE_API_URL=/api (relative, recommended for production)
-      //   - VITE_API_URL=http://thegreyward.duckdns.org/api (absolute with domain)
-      //   - VITE_API_URL=http://localhost:3000 (direct backend, for dev)
-      const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000');
+      // API URL is loaded from config.json (or fallback to env var/defaults)
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData,

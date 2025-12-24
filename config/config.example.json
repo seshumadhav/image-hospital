@@ -22,6 +22,9 @@
       "secretAccessKey": ""
     }
   },
-  "supportedFileTypes": "jpeg,jpg,png,webp"
+  "supportedFileTypes": "jpeg,jpg,png,webp",
+  "frontend": {
+    "apiUrl": "/api"
+  }
 }
 

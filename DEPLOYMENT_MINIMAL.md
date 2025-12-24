@@ -149,30 +149,30 @@ EOF
 
 ## Step 7: Configure Frontend Environment
 
-The frontend API URL is configurable via `VITE_API_URL` environment variable.
+The frontend API URL is configured in `config/config.json` under `frontend.apiUrl`.
 
 **Options:**
 - **`/api`** (recommended) - Relative URL, works with any host/IP (e.g., `http://3.235.226.64` or `http://thegreyward.duckdns.org`)
 - **`http://your-domain.com/api`** - Absolute URL with domain
 - **`http://your-ip:3000`** - Direct backend URL (bypasses Nginx)
 
-**If `VITE_API_URL` is not set**, the frontend will:
+**If `frontend.apiUrl` is not set in config.json**, the frontend will:
 - Use `/api` in production (relative, works with any host)
 - Use `http://localhost:3000` in development
 
 ```bash
-# Option 1: Use relative URL (recommended - works with IP or domain)
-cd /home/ec2-user/image-hospital/ui
-cat > .env.production << EOF
-VITE_API_URL=/api
-EOF
+# Edit config.json to set frontend API URL (already configured in Step 6)
+cd /home/ec2-user/image-hospital
+# The config.json should already have:
+# {
+#   ...
+#   "frontend": {
+#     "apiUrl": "/api"
+#   }
+# }
 
-# Option 2: Use absolute URL with domain (if you always use domain)
-# cat > .env.production << EOF
-# VITE_API_URL=http://thegreyward.duckdns.org/api
-# EOF
-
-# Rebuild frontend with production API URL
+# Build frontend (automatically copies config.json to public directory)
+cd ui
 npm run build
 ```
 

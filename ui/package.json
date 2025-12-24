@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "dev": "vite",
+    "prebuild": "cp ../config/config.json public/config.json || echo 'Warning: config.json not found, using defaults'",
     "build": "vite build",
+    "postbuild": "cp public/config.json dist/config.json 2>/dev/null || echo 'Note: config.json will be served from public/'",
     "preview": "vite preview",
     "test": "echo \"No UI tests configured\" && exit 0"
   },
