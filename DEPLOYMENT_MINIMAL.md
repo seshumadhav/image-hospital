@@ -5,10 +5,14 @@ This guide deploys everything on a single EC2 instance - simplest possible setup
 ## Architecture
 
 - **Single EC2 instance** running:
-  - PostgreSQL (database)
+  - PostgreSQL (database) - *Note: Future iteration should use AWS RDS instead of local PostgreSQL*
   - Node.js backend (API)
   - Nginx (serves frontend + reverse proxy for API)
 - **Domain**: `thegreyward.duckdns.org` → points to EC2 public IP
+
+## Future Improvements
+
+- **Database**: Migrate from local PostgreSQL to AWS RDS for better reliability, automatic backups, and easier scaling
 
 ## Prerequisites
 
