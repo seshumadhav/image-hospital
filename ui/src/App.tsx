@@ -59,7 +59,9 @@ export const App: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      // Use relative URL for production (works with any host/IP), or env var for dev
+      // API URL configuration:
+      // - VITE_API_URL: Explicit API URL (e.g., "http://localhost:3000" for dev, "/api" for relative, or full URL)
+      // - If not set: Use "/api" in production (relative, works with any host), "http://localhost:3000" in dev
       const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000');
       const res = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
