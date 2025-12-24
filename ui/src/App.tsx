@@ -37,12 +37,14 @@ export const App: React.FC = () => {
           setApiUrl(configuredApiUrl);
         } else {
           // Fallback: Use VITE_API_URL env var or defaults
-          setApiUrl(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000'));
+          // In dev mode, use '/api' (Vite proxy) or 'http://localhost:3000' directly
+          setApiUrl(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : '/api'));
         }
       } catch (error) {
         console.warn('Failed to load config.json, using defaults:', error);
         // Fallback: Use VITE_API_URL env var or defaults
-        setApiUrl(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3000'));
+        // In dev mode, use '/api' (Vite proxy) or 'http://localhost:3000' directly
+        setApiUrl(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : '/api'));
       }
     };
     loadConfig();

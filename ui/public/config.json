@@ -1,0 +1,30 @@
+{
+  "server": {
+    "port": 3000
+  },
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "image_hospital",
+    "user": "postgres",
+    "password": "",
+    "connectionString": ""
+  },
+  "blobStorage": {
+    "storage": "local",
+    "local": {
+      "directory": "./blobs"
+    },
+    "s3": {
+      "bucket": "",
+      "region": "us-east-1",
+      "accessKeyId": "",
+      "secretAccessKey": ""
+    }
+  },
+  "supportedFileTypes": "jpeg,jpg,png,webp",
+  "frontend": {
+    "apiUrl": "/api"
+  }
+}
+
