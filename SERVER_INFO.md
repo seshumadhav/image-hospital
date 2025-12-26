@@ -71,9 +71,13 @@ sudo systemctl reload nginx
 
 ## Access URLs
 
-- **Production Frontend**: `http://3.235.226.64` or `http://thegreyward.duckdns.org`
-- **Production API**: `http://3.235.226.64/api` or `http://thegreyward.duckdns.org/api`
-- **Health Check**: `http://3.235.226.64/api/health`
+- **Production Frontend (HTTP)**: `http://3.235.226.64` or `http://thegreyward.duckdns.org`
+- **Production Frontend (HTTPS)**: `https://thegreyward.duckdns.org` (recommended)
+- **Production API (HTTP)**: `http://3.235.226.64/api` or `http://thegreyward.duckdns.org/api`
+- **Production API (HTTPS)**: `https://thegreyward.duckdns.org/api` (recommended)
+- **Health Check**: `http://3.235.226.64/api/health` or `https://thegreyward.duckdns.org/api/health`
+
+**Note**: See `HTTPS_SETUP.md` for instructions on setting up SSL/HTTPS.
 
 ## Quick Test Commands
 

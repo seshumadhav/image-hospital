@@ -82,5 +82,5 @@ curl "https://www.duckdns.org/update?domains=thegreyward&token=$DUCKDNS_TOKEN&ip
 After DNS is configured:
 
 1. **Test the domain**: Visit `http://thegreyward.duckdns.org` in your browser
-2. **Set up SSL/HTTPS**: See `DEPLOYMENT_MINIMAL.md` Step 11 for Let's Encrypt setup
-3. **Update frontend config**: If using HTTPS, update `config/config.json` with `https://thegreyward.duckdns.org/api`
+2. **Set up SSL/HTTPS**: See `HTTPS_SETUP.md` for detailed step-by-step instructions
+3. **After HTTPS setup**: The frontend will automatically use HTTPS (no config changes needed since it uses relative URLs)
