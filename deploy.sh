@@ -25,6 +25,15 @@ sudo chown -R ec2-user:ec2-user ui/dist 2>/dev/null || true
 echo "🎨 Building frontend..."
 cd ui
 npm run build || { echo "❌ Frontend build failed"; exit 1; }
+# Ensure SEO files are copied (Vite should do this automatically, but verify)
+if [ ! -f "dist/robots.txt" ] && [ -f "public/robots.txt" ]; then
+    echo "   Copying robots.txt to dist..."
+    cp public/robots.txt dist/robots.txt
+fi
+if [ ! -f "dist/sitemap.xml" ] && [ -f "public/sitemap.xml" ]; then
+    echo "   Copying sitemap.xml to dist..."
+    cp public/sitemap.xml dist/sitemap.xml
+fi
 cd ..
 
 # Restart backend with PM2
