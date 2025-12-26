@@ -1,117 +1,186 @@
-All that we see or seem is but a dream within a dream.|Edgar Allan Poe
-Time is the most valuable thing a man can spend.|Theophrastus
-The only way to make sense out of change is to plunge into it, move with it, and dance with it.|Alan Watts
-Nothing in the world is permanent, and we're foolish when we ask anything to last.|Euripides
-The present moment is the only time over which we have dominion.|Thích Nhất Hạnh
-Time flies over us, but leaves its shadow behind.|Nathaniel Hawthorne
-Everything flows, and nothing abides; everything gives way, and nothing stays fixed.|Heraclitus
-Time is a created thing. To say "I don't have time" is to say "I don't want to."|Lao Tzu
-The moment is all there is.|Eckhart Tolle
-Life is a series of natural and spontaneous changes. Don't resist them.|Lao Tzu
-The only constant in life is change.|Heraclitus
-Lost time is never found again.|Benjamin Franklin
-Time is what we want most, but what we use worst.|William Penn
-The future is something which everyone reaches at the rate of sixty minutes an hour.|C.S. Lewis
-Time is a river, and books are boats.|Dan Brown
-Time is the most undefinable yet paradoxical of things.|Henry Fielding
-Time is the wisest counselor of all.|Pericles
-Time is the school in which we learn, time is the fire in which we burn.|Delmore Schwartz
-Time is a great teacher, but unfortunately it kills all its pupils.|Hector Berlioz
-Time is the coin of your life. It is the only coin you have.|Carl Sandburg
-Time is the most precious thing we have.|Steve Jobs
-The past is a ghost, the future a dream, and all we ever have is now.|Bill Cosby
-Time is the longest distance between two places.|Tennessee Williams
-You cannot step into the same river twice.|Heraclitus
-The unexamined life is not worth living.|Socrates
-I think, therefore I am.|René Descartes
-We are what we repeatedly do.|Aristotle
+A thing of beauty is a joy forever.|John Keats
 All knowledge begins with experience.|Immanuel Kant
-The feeling of wonder is the mark of the philosopher.|Plato
-What we think, we become.|Buddha
-The only true wisdom is in knowing you know nothing.|Socrates
-It is during our darkest moments that we must focus to see the light.|Aristotle
-Quality is not an act, it is a habit.|Aristotle
-The mind is everything. What you think you become.|Buddha
-Life must be understood backwards. But it must be lived forwards.|Søren Kierkegaard
-We live in the best of all possible worlds.|Gottfried Leibniz
-Man is born free, and everywhere he is in chains.|Jean-Jacques Rousseau
-God is dead.|Friedrich Nietzsche
-Existence precedes essence.|Jean-Paul Sartre
-Love is composed of a single soul inhabiting two bodies.|Aristotle
-The best thing to hold onto in life is each other.|Audrey Hepburn
-Love is not about how much you say "I love you", but how much you prove that it's true.|Unknown
-Love is the only force capable of transforming an enemy into a friend.|Martin Luther King Jr.
-The heart has its reasons which reason knows nothing of.|Blaise Pascal
-Love is the beauty of the soul.|Saint Augustine
-To love is to recognize yourself in another.|Eckhart Tolle
-Love is the bridge between you and everything.|Rumi
-Love is not finding someone to live with, it's finding someone you can't live without.|Rafael Ortiz
-The greatest thing you'll ever learn is just to love and be loved in return.|Eden Ahbez
-Karma is a boomerang. Whatever you give, you get.|Unknown
-What goes around comes around.|Proverb
+All that we see or seem is but a dream within a dream.|Edgar Allan Poe
 As you sow, so shall you reap.|Bible
-The law of karma is the law of cause and effect.|Buddha
-Every action has an equal and opposite reaction.|Isaac Newton
-You get back what you put out into the universe.|Unknown
-Karma has no menu. You get served what you deserve.|Unknown
-The universe is not outside of you. Look inside yourself; everything that you want, you already are.|Rumi
-Your thoughts become things. If you can see it in your mind, you can hold it in your hand.|Bob Proctor
-The soul is the same in all living creatures, although the body of each is different.|Hippocrates
-The soul that can speak through the eyes can also kiss with a gaze.|Gustavo Adolfo Bécquer
-The soul is dyed the color of its thoughts.|Marcus Aurelius
-The soul becomes dyed with the color of its thoughts.|Marcus Aurelius
-Beauty is truth, truth beauty,—that is all ye know on earth, and all ye need to know.|John Keats
-Beauty is not in the face; beauty is a light in the heart.|Kahlil Gibran
-Everything has beauty, but not everyone sees it.|Confucius
+Beauty is eternity gazing at itself in a mirror.|Kahlil Gibran
 Beauty is how you feel inside, and it reflects in your eyes.|Sophia Loren
-The most beautiful things in the world cannot be seen or even touched. They must be felt with the heart.|Helen Keller
-Beauty is eternity gazing at itself in a mirror.|Kahlil Gibran
-A thing of beauty is a joy forever.|John Keats
-Beauty is power; a smile is its sword.|John Ray
-Longing is the core of mystery. Longing itself brings the cure.|Rumi
-The ache for home lives in all of us, the safe place where we can go as we are.|Maya Angelou
-Longing is like the seed that wrestles in the ground, believing in the sun.|Rumi
-The longing for love is the longing for our own deepest truth.|Thích Nhất Hạnh
-We are homesick most for the places we have never known.|Carson McCullers
-Longing is the heart's way of remembering what it has forgotten.|Rumi
-The soul that is within me no man can degrade.|Frederick Douglass
-The soul is the prison of the body.|Michel Foucault
-The soul should always stand ajar, ready to welcome the ecstatic experience.|Emily Dickinson
-Your soul knows the geography of your destiny.|John O'Donohue
-The soul is the same in all living creatures, although the body of each is different.|Hippocrates
-The soul becomes dyed with the color of its thoughts.|Marcus Aurelius
-Beauty is truth, truth beauty,—that is all ye know on earth, and all ye need to know.|John Keats
 Beauty is not in the face; beauty is a light in the heart.|Kahlil Gibran
-Everything has beauty, but not everyone sees it.|Confucius
-The most beautiful things in the world cannot be seen or even touched. They must be felt with the heart.|Helen Keller
-Beauty is eternity gazing at itself in a mirror.|Kahlil Gibran
-A thing of beauty is a joy forever.|John Keats
-Love is composed of a single soul inhabiting two bodies.|Aristotle
-The best thing to hold onto in life is each other.|Audrey Hepburn
-Love is the only force capable of transforming an enemy into a friend.|Martin Luther King Jr.
-The heart has its reasons which reason knows nothing of.|Blaise Pascal
-Love is the beauty of the soul.|Saint Augustine
-To love is to recognize yourself in another.|Eckhart Tolle
-Love is the bridge between you and everything.|Rumi
-Karma is a boomerang. Whatever you give, you get.|Unknown
-What goes around comes around.|Proverb
-As you sow, so shall you reap.|Bible
-The law of karma is the law of cause and effect.|Buddha
+Beauty is power; a smile is its sword.|John Ray
+Beauty is truth, truth beauty,—that is all ye know on earth, and all ye need to know.|John Keats
 Every action has an equal and opposite reaction.|Isaac Newton
-You get back what you put out into the universe.|Unknown
+Everything flows, and nothing abides; everything gives way, and nothing stays fixed.|Heraclitus
+Everything has beauty, but not everyone sees it.|Confucius
+Existence precedes essence.|Jean-Paul Sartre
+God is dead.|Friedrich Nietzsche
+I think, therefore I am.|René Descartes
+It is during our darkest moments that we must focus to see the light.|Aristotle
 Karma has no menu. You get served what you deserve.|Unknown
-The universe is not outside of you. Look inside yourself; everything that you want, you already are.|Rumi
-Your thoughts become things. If you can see it in your mind, you can hold it in your hand.|Bob Proctor
-Longing is the core of mystery. Longing itself brings the cure.|Rumi
-The ache for home lives in all of us, the safe place where we can go as we are.|Maya Angelou
+Karma is a boomerang. Whatever you give, you get.|Unknown
+Life is a series of natural and spontaneous changes. Don't resist them.|Lao Tzu
+Life must be understood backwards. But it must be lived forwards.|Søren Kierkegaard
 Longing is like the seed that wrestles in the ground, believing in the sun.|Rumi
-The longing for love is the longing for our own deepest truth.|Thích Nhất Hạnh
-We are homesick most for the places we have never known.|Carson McCullers
+Longing is the core of mystery. Longing itself brings the cure.|Rumi
 Longing is the heart's way of remembering what it has forgotten.|Rumi
-The soul that is within me no man can degrade.|Frederick Douglass
+Lost time is never found again.|Benjamin Franklin
+Love is composed of a single soul inhabiting two bodies.|Aristotle
+Love is not about how much you say "I love you", but how much you prove that it's true.|Unknown
+Love is not finding someone to live with, it's finding someone you can't live without.|Rafael Ortiz
+Love is the beauty of the soul.|Saint Augustine
+Love is the bridge between you and everything.|Rumi
+Love is the only force capable of transforming an enemy into a friend.|Martin Luther King Jr.
+Man is born free, and everywhere he is in chains.|Jean-Jacques Rousseau
+Nothing in the world is permanent, and we're foolish when we ask anything to last.|Euripides
+Quality is not an act, it is a habit.|Aristotle
+The ache for home lives in all of us, the safe place where we can go as we are.|Maya Angelou
+The best thing to hold onto in life is each other.|Audrey Hepburn
+The feeling of wonder is the mark of the philosopher.|Plato
+The future is something which everyone reaches at the rate of sixty minutes an hour.|C.S. Lewis
+The greatest thing you'll ever learn is just to love and be loved in return.|Eden Ahbez
+The heart has its reasons which reason knows nothing of.|Blaise Pascal
+The law of karma is the law of cause and effect.|Buddha
+The longing for love is the longing for our own deepest truth.|Thích Nhất Hạnh
+The mind is everything. What you think you become.|Buddha
+The moment is all there is.|Eckhart Tolle
+The most beautiful things in the world cannot be seen or even touched. They must be felt with the heart.|Helen Keller
+The only constant in life is change.|Heraclitus
+The only true wisdom is in knowing you know nothing.|Socrates
+The only way to make sense out of change is to plunge into it, move with it, and dance with it.|Alan Watts
+The past is a ghost, the future a dream, and all we ever have is now.|Bill Cosby
+The present moment is the only time over which we have dominion.|Thích Nhất Hạnh
+The soul becomes dyed with the color of its thoughts.|Marcus Aurelius
+The soul is dyed the color of its thoughts.|Marcus Aurelius
 The soul is the prison of the body.|Michel Foucault
+The soul is the same in all living creatures, although the body of each is different.|Hippocrates
 The soul should always stand ajar, ready to welcome the ecstatic experience.|Emily Dickinson
+The soul that can speak through the eyes can also kiss with a gaze.|Gustavo Adolfo Bécquer
+The soul that is within me no man can degrade.|Frederick Douglass
+The unexamined life is not worth living.|Socrates
+The universe is not outside of you. Look inside yourself; everything that you want, you already are.|Rumi
+Time flies over us, but leaves its shadow behind.|Nathaniel Hawthorne
+Time is a created thing. To say "I don't have time" is to say "I don't want to."|Lao Tzu
+Time is a great teacher, but unfortunately it kills all its pupils.|Hector Berlioz
+Time is a river, and books are boats.|Dan Brown
+Time is the coin of your life. It is the only coin you have.|Carl Sandburg
+Time is the longest distance between two places.|Tennessee Williams
+Time is the most precious thing we have.|Steve Jobs
+Time is the most undefinable yet paradoxical of things.|Henry Fielding
+Time is the most valuable thing a man can spend.|Theophrastus
+Time is the school in which we learn, time is the fire in which we burn.|Delmore Schwartz
+Time is the wisest counselor of all.|Pericles
+Time is what we want most, but what we use worst.|William Penn
+To love is to recognize yourself in another.|Eckhart Tolle
+We are homesick most for the places we have never known.|Carson McCullers
+We are what we repeatedly do.|Aristotle
+We live in the best of all possible worlds.|Gottfried Leibniz
+What goes around comes around.|Proverb
+What we think, we become.|Buddha
+You cannot step into the same river twice.|Heraclitus
+You get back what you put out into the universe.|Unknown
 Your soul knows the geography of your destiny.|John O'Donohue
-
-
-
+Your thoughts become things. If you can see it in your mind, you can hold it in your hand.|Bob Proctor
+The wound is the place where the Light enters you.|Rumi
+Grief is the price we pay for love.|Queen Elizabeth II
+To have been loved so deeply gives us a protection forever.|J.K. Rowling
+The pain of parting is nothing to the joy of meeting again.|Charles Dickens
+Love never dies a natural death. It dies because we don't know how to replenish its source.|Anaïs Nin
+The heart that loves is always young.|Greek Proverb
+Love is an act of endless forgiveness, a tender look which becomes a habit.|Peter Ustinov
+When you love someone, you love the person as they are, and not as you'd like them to be.|Leo Tolstoy
+Love is the only reality and it is not a mere sentiment. It is the ultimate truth that lies at the heart of creation.|Rabindranath Tagore
+Love is patient, love is kind. It does not envy, it does not boast, it is not proud.|Bible
+Love is the greatest refreshment in life.|Pablo Picasso
+Love is the flower you've got to let grow.|John Lennon
+Love is the master key that opens the gates of happiness.|Oliver Wendell Holmes
+Love is the only sane and satisfactory answer to the problem of human existence.|Erich Fromm
+Love is the only way to grasp another human being in the innermost core of his personality.|Viktor Frankl
+The loss of a beloved is an amputation.|C.S. Lewis
+We never lose the people we love. They live on in our memories.|Unknown
+Missing someone is your heart's way of reminding you that you love them.|Unknown
+The time we spent together was worth every moment of the pain of missing you.|Unknown
+Time heals all wounds, but it also deepens the scars of love lost.|Unknown
+In the depth of winter, I finally learned that within me there lay an invincible summer.|Albert Camus
+The memory of things gone is important to a jazz musician. Things like old folks singing in the moonlight in the back yard on a hot night.|Louis Armstrong
+Memory is the diary that we all carry about with us.|Oscar Wilde
+Memories are the architecture of our identity.|Unknown
+The past beats inside me like a second heart.|John Banville
+Time is a cruel thief to rob us of our former selves. We lose as much to life as we do to death.|Elizabeth Forsythe Hailey
+Time heals what reason cannot.|Seneca
+Trust in the Lord with all your heart and lean not on your own understanding.|Bible
+God's plan is always better than our dreams.|Unknown
+Everything happens for a reason. Sometimes the reason is that you're stupid and make bad decisions.|Unknown
+What is meant for you will reach you even if it is beneath two mountains. What isn't meant for you won't reach you even if it is between your two lips.|Rumi
+Trust the process. Your time will come.|Unknown
+God's delays are not God's denials.|Robert H. Schuller
+The best is yet to come.|Frank Sinatra
+Everything will be okay in the end. If it's not okay, it's not the end.|John Lennon
+What you seek is seeking you.|Rumi
+The heart has reasons that reason cannot know.|Blaise Pascal
+Love is not about possession. Love is about appreciation.|Osho
+The memory of things gone is important to a jazz musician.|Louis Armstrong
+When two souls are meant to be together, no time is too long, no distance is too far.|Unknown
+The bond between two people who have loved deeply transcends time and space.|Unknown
+In your absence, I found that love is not about being together, but about being one even when apart.|Unknown
+The deepest love creates an unbreakable bond that survives even death.|Unknown
+When you truly love someone, they become a part of your soul forever.|Unknown
+Love is not finding a perfect person, but seeing an imperfect person perfectly.|Sam Keen
+The best love is the kind that awakens the soul and makes us reach for more.|Nicholas Sparks
+When you realize you want to spend the rest of your life with somebody, you want the rest of your life to start as soon as possible.|Nora Ephron
+Love recognizes no barriers. It jumps hurdles, leaps fences, penetrates walls to arrive at its destination full of hope.|Maya Angelou
+Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.|Lao Tzu
+Love is not about how many days, months, or years you have been together. It's about how much you love each other every single day.|Unknown
+The emotion that can break your heart is sometimes the very one that heals it.|Nicholas Sparks
+Emotions are the colors of the soul.|Unknown
+The heart has its own language. The heart knows a hundred thousand ways to speak.|Rumi
+Emotions are not meant to be rational. They are meant to be felt.|Unknown
+The depth of your emotion is the depth of your life.|Unknown
+Feelings are just visitors, let them come and go.|Rumi
+The absence of a beloved is like a wound that never fully heals.|Unknown
+Missing you is my heart's way of reminding me that I love you.|Unknown
+Distance means nothing when someone means everything.|Unknown
+The pain of missing you is the price I pay for having loved you so deeply.|Unknown
+In your absence, I have learned that love is not about proximity, but about presence in the heart.|Unknown
+The ache of missing someone is love with nowhere to go.|Unknown
+Time has a way of showing us what really matters, and who really matters.|Unknown
+The power of time is that it teaches us what we cannot learn in any other way.|Unknown
+Time is the most powerful force in the universe. It can heal wounds, fade memories, and reveal truths.|Unknown
+Time has a way of making us forget what we want to remember and remember what we want to forget.|Unknown
+The power of time is that it gives us perspective on what truly matters.|Unknown
+Time is the greatest teacher, but unfortunately it kills all its pupils.|Hector Berlioz
+Trust in God's timing. His delays are not denials.|Unknown
+God's plan is like a beautiful tapestry. We only see the back, but God sees the front.|Unknown
+When God closes a door, He opens a window, but sometimes it's hell in the hallway.|Unknown
+Trust in the Lord with all your heart, and do not lean on your own understanding.|Bible
+God's ways are higher than our ways, and His thoughts higher than our thoughts.|Bible
+What is meant for you will find you, even if it takes a lifetime.|Unknown
+Karma is not punishment or reward. It is simply the law of cause and effect.|Buddha
+The universe has a way of balancing itself. What you put out comes back to you.|Unknown
+Karma is like a boomerang. What you throw out comes back to you.|Unknown
+The law of karma is the law of cause and effect. Every action has a reaction.|Buddha
+Memories are the treasures that we keep locked deep within the storehouse of our souls.|Unknown
+Memories are the key not to the past, but to the future.|Cori McCarthy
+The memories we make with the people we love become a part of our soul.|Unknown
+The past is never dead. It's not even past.|William Faulkner
+Memories are the diary that we all carry about with us.|Oscar Wilde
+The loss of love is the greatest of all losses.|Unknown
+Grief is love with no place to go.|Jamie Anderson
+The price of love is loss, but still we pay.|Unknown
+To love and lose is better than never to have loved at all.|Alfred Lord Tennyson
+The pain of loss is the price we pay for the privilege of love.|Unknown
+When someone you love becomes a memory, the memory becomes a treasure.|Unknown
+The heart never forgets those it has loved deeply.|Unknown
+The bond between two souls who have loved deeply is eternal.|Unknown
+When two hearts are meant to be together, nothing can keep them apart.|Unknown
+The connection between two people who have loved deeply transcends the physical realm.|Unknown
+Love is not about finding the right person, but being the right person for someone.|Unknown
+The deepest bonds are formed not by time, but by the depth of feeling shared between two souls.|Unknown
+When you love someone deeply, they become a part of your very essence.|Unknown
+The feelings between a man and woman who have loved deeply create an unbreakable bond.|Unknown
+True love is not about being inseparable, but about being separated and nothing changes.|Unknown
+The bond of deep love is like a thread that connects two souls across any distance.|Unknown
+When two people have loved deeply, they carry each other in their hearts forever.|Unknown
+The connection between two souls who have loved deeply is stronger than death itself.|Unknown
+Love is not about possession, but about appreciation of another soul.|Unknown
+The deepest love creates a bond that time cannot break.|Unknown
+When you love someone deeply, you see them not as they are, but as they could be.|Unknown
+The bond between two people who have loved deeply is written in the stars.|Unknown
+Love is the bridge between two souls, connecting them across any distance.|Unknown
