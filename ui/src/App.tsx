@@ -217,6 +217,10 @@ export const App: React.FC = () => {
       <header className="page-header">
         <h1 className="page-heading">The Grey Ward</h1>
         <p className="page-caption">Temporary image hosting with automatic expiration</p>
+        <p className="page-description" style={{ marginTop: '16px', fontSize: '14px', color: '#888', lineHeight: '1.6' }}>
+          Free temporary image hosting and sharing tool. Upload images instantly and get shareable links that expire automatically. 
+          Perfect for quick image sharing, temporary file storage, and anonymous image hosting. No registration required.
+        </p>
       </header>
       <main className="page-content">
         <div className="card">
