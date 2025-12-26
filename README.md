@@ -9,6 +9,8 @@ Architecture is described in `ARCHITECTURE.md` and `DECISONS.md` and implemented
 - Local filesystem–style blob abstraction (currently in-memory, swappable later)
 - React monochrome UI (via Vite) for a single-page uploader
 
+**📋 Quick Reference**: See `SERVER_INFO.md` for EC2 IP, domain, and server management commands.
+
 ## Prerequisites
 
 - Node.js (v18+ recommended)

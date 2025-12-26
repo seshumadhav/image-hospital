@@ -12,3 +12,5 @@
   "notes": "Domain secured via DuckDNS. Will be configured to point to AWS resources (S3+CloudFront for frontend, EC2 for backend)"
 }
 
+
+

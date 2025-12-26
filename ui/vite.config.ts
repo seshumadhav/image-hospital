@@ -14,6 +14,20 @@ export default defineConfig({
       },
       // Also proxy /upload directly for backward compatibility
       '/upload': 'http://localhost:3000',
+      // Proxy /image/ routes to backend for image access (not /images/)
+      // Using bypass to exclude /images/ paths
+      '/image': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        bypass: (req) => {
+          // Don't proxy if it's /images/ (plural) - let Vite serve static files
+          if (req.url?.startsWith('/images/')) {
+            return req.url;
+          }
+          // Proxy /image/ (singular) paths to backend
+          return null;
+        },
+      },
     },
   },
 }); 

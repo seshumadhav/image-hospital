@@ -17,6 +17,7 @@
 - No deletion logic
 - Clock skew of ±5 seconds is acceptable
 - If you were to create a DB for any reason, use postgres
+- Make sure the interface to talk to DB is agnostic of DB choice
 
 ## Core Modules
 - HTTP API Layer

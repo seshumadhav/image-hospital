@@ -24,6 +24,24 @@ export const App: React.FC = () => {
   const [quote, setQuote] = useState<{ text: string; author: string } | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [apiUrl, setApiUrl] = useState<string>('');
+  const [urlError, setUrlError] = useState<string | null>(null);
+
+  // Check for error in URL query parameters on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorParam = urlParams.get('error');
+    if (errorParam) {
+      setUrlError(decodeURIComponent(errorParam));
+      // Clear the error from URL without reloading
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+      // Auto-dismiss after 8 seconds
+      const timer = setTimeout(() => {
+        setUrlError(null);
+      }, 8000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // Load configuration from config.json
   useEffect(() => {
@@ -121,8 +139,13 @@ export const App: React.FC = () => {
         return;
       }
 
+      // Convert relative URL to absolute URL for display and clipboard
+      const imageUrl = body.url.startsWith('http') 
+        ? body.url 
+        : `${window.location.origin}${body.url}`;
+
       setResponse({
-        url: body.url,
+        url: imageUrl,
         expiresAtEpochMs: body.expiresAtEpochMs,
       });
       setState('success');
@@ -175,7 +198,22 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="page">
+    <div className={`page ${urlError ? 'has-error-banner' : ''}`}>
+      {urlError && (
+        <div className="error-banner">
+          <div className="error-banner-content">
+            <span className="error-banner-icon">⚠</span>
+            <span className="error-banner-message">{urlError}</span>
+            <button
+              className="error-banner-close"
+              onClick={() => setUrlError(null)}
+              aria-label="Close error message"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
       <header className="page-header">
         <h1 className="page-heading">The Grey Ward</h1>
         <p className="page-caption">Temporary image hosting with automatic expiration</p>

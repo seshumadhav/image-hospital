@@ -103,6 +103,12 @@ export class HttpServer {
     res.end(JSON.stringify({ error: 'Not found' }));
   }
 
+  private getRedirectUrl(message: string): string {
+    // URL encode the error message for query parameter
+    const encodedMessage = encodeURIComponent(message);
+    return `/?error=${encodedMessage}`;
+  }
+
   private handleImage(req: http.IncomingMessage, res: http.ServerResponse): void {
     const url = req.url || '/';
     const path = url.split('?', 1)[0];
@@ -110,8 +116,10 @@ export class HttpServer {
 
     const token = path.startsWith(prefix) ? path.slice(prefix.length) : '';
     if (!token) {
-      res.writeHead(404);
-      res.end(JSON.stringify({ error: 'Not found' }));
+      // Redirect to main page with error message
+      const redirectUrl = this.getRedirectUrl('The URL may be invalid or the image has expired.');
+      res.writeHead(302, { Location: redirectUrl });
+      res.end();
       return;
     }
 
@@ -120,9 +128,11 @@ export class HttpServer {
         const result = await accessImage(token, this.imageAccessDeps);
 
         if (!result.allowed) {
-          // Deny access consistently as 404
-          res.writeHead(404);
-          res.end(JSON.stringify({ error: 'Not found' }));
+          // Redirect to main page with appropriate error message
+          const message = 'The URL may be invalid or the image has expired.';
+          const redirectUrl = this.getRedirectUrl(message);
+          res.writeHead(302, { Location: redirectUrl });
+          res.end();
           return;
         }
 
@@ -177,13 +187,9 @@ export class HttpServer {
 
         const result = await uploadImage(uploadReq, this.uploadDeps);
 
-        const host = req.headers.host || `localhost:${this.port}`;
-        const protoHeader = req.headers['x-forwarded-proto'];
-        const proto =
-          (Array.isArray(protoHeader) ? protoHeader[0] : protoHeader) ||
-          (this.port === 443 ? 'https' : 'http');
-
-        const url = `${proto}://${host}/image/${result.token}`;
+        // Use relative URL - works in both dev (Vite proxy) and production (Nginx proxy)
+        // The frontend will handle constructing the full URL if needed
+        const url = `/image/${result.token}`;
 
         res.writeHead(200);
         res.end(

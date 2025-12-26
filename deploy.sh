@@ -46,3 +46,5 @@ echo "   Frontend: http://$(curl -s ifconfig.me || echo 'YOUR_IP')"
 echo "   Health: http://$(curl -s ifconfig.me || echo 'YOUR_IP')/api/health"
 echo ""
 
+
+
