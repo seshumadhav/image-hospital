@@ -230,7 +230,7 @@ export const App: React.FC = () => {
       <header className="page-header">
         <h1 className="page-heading">The Grey Ward</h1>
         <p className="page-caption">Temporary image hosting with automatic expiration</p>
-        <p className="page-description" style={{ marginTop: '16px', fontSize: '14px', color: '#888', lineHeight: '1.6' }}>
+        <p className="page-description" style={{ marginTop: '16px', marginBottom: '0', fontSize: '14px', color: '#888', lineHeight: '1.6' }}>
           Upload images instantly and get shareable links. No registration required.
         </p>
         {/* SEO-optimized hidden text for search engines */}
