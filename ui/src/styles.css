@@ -51,7 +51,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 120px 40px 60px;
+  padding: 40px 40px 60px;
   text-align: left;
   z-index: 1;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -97,7 +97,7 @@ body {
 
 @media (max-width: 768px) {
   .page-header {
-    padding: 90px 24px 40px;
+    padding: 32px 24px 40px;
   }
 
   .page-heading {
@@ -120,7 +120,7 @@ body {
 
 @media (max-width: 480px) {
   .page-header {
-    padding: 70px 20px 32px;
+    padding: 24px 20px 32px;
   }
 
   .page-heading {
@@ -483,12 +483,12 @@ input[type='file']:focus {
 
 /* Add padding to page header when banner is visible to prevent overlap */
 .page.has-error-banner .page-header {
-  padding-top: 140px;
+  padding-top: 160px;
 }
 
 @media (max-width: 768px) {
   .page.has-error-banner .page-header {
-    padding-top: 130px;
+    padding-top: 150px;
   }
 
   .error-banner-content {
@@ -512,7 +512,7 @@ input[type='file']:focus {
 
 @media (max-width: 480px) {
   .page.has-error-banner .page-header {
-    padding-top: 110px;
+    padding-top: 130px;
   }
 
   .error-banner-content {
