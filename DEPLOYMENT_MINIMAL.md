@@ -191,6 +191,18 @@ server {
     root /home/ec2-user/image-hospital/ui/dist;
     index index.html;
 
+    # Explicitly serve robots.txt and sitemap.xml (before catch-all)
+    location = /robots.txt {
+        access_log off;
+        log_not_found off;
+    }
+    
+    location = /sitemap.xml {
+        access_log off;
+        log_not_found off;
+        add_header Content-Type "application/xml; charset=utf-8";
+    }
+
     # Frontend routes
     location / {
         try_files $uri $uri/ /index.html;
