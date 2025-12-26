@@ -243,7 +243,7 @@ export const App: React.FC = () => {
         <p className="subtitle">
           Upload your image.
           <br />
-          Your image will be on the server only for 1 minute
+          Your image will be on the server only for 1 minute.
         </p>
 
         <form className="form" onSubmit={onSubmit}>
