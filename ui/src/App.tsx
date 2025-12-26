@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getRandomImage, getRandomQuote } from './artData';
+import { getRandomImage, getRandomImageWithFallback, getRandomQuote } from './artData';
 
 type UploadState = 'idle' | 'uploading' | 'success' | 'error';
 
@@ -70,8 +70,21 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     // Load abstract art and quote on initial page load
-    setArtImage(getRandomImage());
-    getRandomQuote().then(setQuote);
+    // Use async function to handle image loading with fallback
+    const loadArtAndQuote = async () => {
+      try {
+        const imagePath = await getRandomImageWithFallback();
+        setArtImage(imagePath);
+      } catch (error) {
+        // Fallback: try again with getRandomImage
+        getRandomImage().then(setArtImage).catch(() => {
+          // Ultimate fallback: use a default image
+          setArtImage('/images/image-001.jpg');
+        });
+      }
+      getRandomQuote().then(setQuote);
+    };
+    loadArtAndQuote();
   }, []);
 
   // Update preview when file is selected
@@ -260,7 +273,25 @@ export const App: React.FC = () => {
             <>
               {artImage && (
                 <div className="abstract-art">
-                  <img src={artImage} alt="Abstract art" className="art-image" />
+                  <img 
+                    src={artImage} 
+                    alt="Abstract art" 
+                    className="art-image"
+                    onError={async (e) => {
+                      // If image fails to load, try a different one
+                      console.warn('Image failed to load, trying another:', artImage);
+                      try {
+                        const newImage = await getRandomImageWithFallback();
+                        setArtImage(newImage);
+                      } catch (error) {
+                        // If all retries fail, try async getRandomImage
+                        getRandomImage().then(setArtImage).catch(() => {
+                          // Ultimate fallback
+                          setArtImage('/images/image-001.jpg');
+                        });
+                      }
+                    }}
+                  />
                 </div>
               )}
               {quote && (

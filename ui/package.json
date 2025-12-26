@@ -4,9 +4,9 @@
   "description": "",
   "scripts": {
     "dev": "vite",
-    "prebuild": "cp ../config/config.json public/config.json || echo 'Warning: config.json not found, using defaults'",
+    "prebuild": "cp ../config/config.json public/config.json || echo 'Warning: config.json not found, using defaults' && (ls public/images/image-*.jpg 2>/dev/null | sed 's|.*/||' | jq -R -s -c 'split(\"\\n\") | map(select(length > 0)) | sort' > public/images/manifest.json 2>/dev/null || python3 -c \"import json, os, glob; files = sorted([os.path.basename(f) for f in glob.glob('public/images/image-*.jpg')]); json.dump(files, open('public/images/manifest.json', 'w'))\" || echo 'Warning: Could not generate manifest.json')",
     "build": "vite build",
-    "postbuild": "cp public/config.json dist/config.json 2>/dev/null || echo 'Note: config.json will be served from public/'",
+    "postbuild": "cp public/config.json dist/config.json 2>/dev/null || echo 'Note: config.json will be served from public/' && cp public/images/manifest.json dist/images/manifest.json 2>/dev/null || echo 'Note: manifest.json will be served from public/'",
     "preview": "vite preview",
     "test": "echo \"No UI tests configured\" && exit 0"
   },
