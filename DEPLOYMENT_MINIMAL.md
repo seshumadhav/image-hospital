@@ -193,11 +193,13 @@ server {
 
     # Explicitly serve robots.txt and sitemap.xml (before catch-all)
     location = /robots.txt {
+        try_files $uri =404;
         access_log off;
         log_not_found off;
     }
     
     location = /sitemap.xml {
+        try_files $uri =404;
         access_log off;
         log_not_found off;
         add_header Content-Type "application/xml; charset=utf-8";
