@@ -180,3 +180,4 @@ curl -X POST -F "file=@/path/to/image.jpg" http://3.235.226.64/api/upload
 ```
 
 
+Currenlty deployed at https://thegreyward.duckdns.org/
