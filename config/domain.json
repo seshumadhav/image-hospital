@@ -1,8 +1,7 @@
 {
   "domain": "*.duckdns.org",
   "provider": "DuckDNS",
-  "subdomains": ["thegreyward", "kallallo"],
-  "notes": "To switch domains: update IP in DuckDNS. Server auto-detects within 5 minutes. To add a new subdomain, add it to the list and push — then trigger the 'Add Subdomain' GitHub Actions workflow once to generate its cert."
+  "notes": "To switch to an existing subdomain: update IP in DuckDNS — server switches within 5 minutes. To add a brand-new subdomain: trigger the 'Add Subdomain' GitHub Actions workflow once."
 }
 
 

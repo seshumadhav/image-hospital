@@ -1,26 +1,24 @@
 #!/bin/bash
 # Run by cron every 5 minutes.
-# Detects which registered subdomain points to this server's IP
-# and switches the active SSL cert automatically.
+# Scans existing SSL certs and switches to whichever subdomain
+# currently resolves to this server's IP.
 
-DOMAIN_JSON="/home/ubuntu/image-hospital/config/domain.json"
 CURRENT_LINK="/etc/letsencrypt/live/current-duckdns"
 LOG="/var/log/image-hospital-domain.log"
 
 MY_IP=$(curl -s https://api.ipify.org 2>/dev/null)
 if [ -z "$MY_IP" ]; then exit 0; fi
 
-SUBDOMAINS=$(python3 -c "import json; print(' '.join(json.load(open('$DOMAIN_JSON')).get('subdomains', [])))" 2>/dev/null)
-
-for subdomain in $SUBDOMAINS; do
-  DOMAIN_IP=$(python3 -c "import socket; print(socket.gethostbyname('${subdomain}.duckdns.org'))" 2>/dev/null || echo "")
-  if [ "$DOMAIN_IP" = "$MY_IP" ]; then
-    NEW_CERT="/etc/letsencrypt/live/${subdomain}.duckdns.org"
-    CURRENT_CERT=$(readlink -f "$CURRENT_LINK" 2>/dev/null || echo "")
-    if [ "$CURRENT_CERT" != "$NEW_CERT" ] && [ -d "$NEW_CERT" ]; then
-      ln -sfn "$NEW_CERT" "$CURRENT_LINK"
+for cert_dir in /etc/letsencrypt/live/*.duckdns.org; do
+  [ -d "$cert_dir" ] || continue
+  full_domain=$(basename "$cert_dir")
+  domain_ip=$(python3 -c "import socket; print(socket.gethostbyname('$full_domain'))" 2>/dev/null || echo "")
+  if [ "$domain_ip" = "$MY_IP" ]; then
+    current_cert=$(readlink -f "$CURRENT_LINK" 2>/dev/null || echo "")
+    if [ "$current_cert" != "$cert_dir" ]; then
+      ln -sfn "$cert_dir" "$CURRENT_LINK"
       nginx -t && systemctl reload nginx
-      echo "$(date): Switched to ${subdomain}.duckdns.org" >> "$LOG"
+      echo "$(date): Switched to $full_domain" >> "$LOG"
     fi
     break
   fi
