@@ -13,31 +13,19 @@ TOKEN="$3"
 
 if [ -z "$SUBDOMAIN" ] || [ -z "$EMAIL" ] || [ -z "$TOKEN" ]; then
   echo "Usage: sudo bash scripts/setup-ssl.sh <subdomain> <email> <duckdns-token>"
-  echo "  Get your token at https://www.duckdns.org/"
   exit 1
 fi
 
-echo "Installing certbot and DuckDNS plugin..."
-if command -v snap &>/dev/null; then
-  snap install certbot --classic 2>/dev/null || true
-  snap set certbot trust-plugin-with-root=ok
-  snap install certbot-dns-duckdns 2>/dev/null || true
-  CERTBOT=certbot
-else
-  if ! command -v python3 &>/dev/null; then
-    if command -v dnf &>/dev/null; then
-      dnf install -y python3
-    elif command -v yum &>/dev/null; then
-      yum install -y python3
-    fi
-  fi
-  python3 -m venv /opt/certbot
-  /opt/certbot/bin/pip install --quiet certbot certbot-dns-duckdns
-  CERTBOT=/opt/certbot/bin/certbot
-fi
-echo "Using certbot at: $CERTBOT"
+echo "Installing certbot in isolated virtualenv..."
+dnf install -y python3 2>/dev/null || yum install -y python3 2>/dev/null || true
+rm -rf /opt/certbot
+python3 -m venv /opt/certbot
+/opt/certbot/bin/pip install --quiet --upgrade pip
+/opt/certbot/bin/pip install --quiet certbot certbot-dns-duckdns
+CERTBOT=/opt/certbot/bin/certbot
+echo "certbot version: $($CERTBOT --version)"
 
-echo "Saving credentials..."
+echo "Saving DuckDNS credentials..."
 mkdir -p /etc/letsencrypt/duckdns
 cat > /etc/letsencrypt/duckdns/credentials.ini <<EOF
 dns_duckdns_token=${TOKEN}
@@ -54,27 +42,18 @@ $CERTBOT certonly \
   --email "$EMAIL" \
   --non-interactive
 
+echo "Creating cert symlink..."
+ln -sfn "/etc/letsencrypt/live/${SUBDOMAIN}.duckdns.org" /etc/letsencrypt/live/current-duckdns
+
 echo "Installing Nginx config..."
 sed "s|/home/ubuntu/image-hospital|$PROJECT_ROOT|g" \
-  "$PROJECT_ROOT/nginx/image-hospital.conf" > /tmp/image-hospital.conf
-if [ -d /etc/nginx/sites-available ]; then
-  cp /tmp/image-hospital.conf /etc/nginx/sites-available/image-hospital
-  ln -sf /etc/nginx/sites-available/image-hospital /etc/nginx/sites-enabled/image-hospital
-  rm -f /etc/nginx/sites-enabled/default
-else
-  cp /tmp/image-hospital.conf /etc/nginx/conf.d/image-hospital.conf
-fi
+  "$PROJECT_ROOT/nginx/image-hospital.conf" > /etc/nginx/conf.d/image-hospital.conf
 
 echo "Setting up auto-switch cron (every 5 min)..."
 chmod +x "$PROJECT_ROOT/scripts/auto-switch.sh"
 (crontab -l 2>/dev/null | grep -v "auto-switch"; echo "*/5 * * * * bash $PROJECT_ROOT/scripts/auto-switch.sh") | crontab -
 
-echo "Running initial domain detection..."
-bash "$PROJECT_ROOT/scripts/auto-switch.sh"
-
 nginx -t && systemctl reload nginx
 
 echo ""
 echo "Done! https://${SUBDOMAIN}.duckdns.org is live."
-echo "To add a new subdomain in future: trigger 'Add Subdomain' in GitHub Actions."
-echo "To switch between known subdomains: just update the IP in DuckDNS."
