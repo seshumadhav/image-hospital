@@ -1,7 +1,8 @@
 {
   "domain": "*.duckdns.org",
   "provider": "DuckDNS",
-  "notes": "Wildcard domain. Active subdomain is set at deploy time. To switch subdomains, trigger the 'Switch Domain' GitHub Actions workflow."
+  "subdomains": ["thegreyward", "kallallo"],
+  "notes": "To switch domains: update IP in DuckDNS. Server auto-detects within 5 minutes. To add a new subdomain, add it to the list and push — then trigger the 'Add Subdomain' GitHub Actions workflow once to generate its cert."
 }
 
 

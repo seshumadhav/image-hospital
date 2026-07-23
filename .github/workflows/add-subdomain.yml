@@ -1,0 +1,29 @@
+name: Add Subdomain
+
+on:
+  workflow_dispatch:
+    inputs:
+      subdomain:
+        description: 'New DuckDNS subdomain to register (without .duckdns.org)'
+        required: true
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get SSL cert for new subdomain on EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/image-hospital
+            git pull
+            certbot certonly \
+              --authenticator dns-duckdns \
+              --dns-duckdns-credentials /etc/letsencrypt/duckdns/credentials.ini \
+              --dns-duckdns-propagation-seconds 60 \
+              -d "${{ github.event.inputs.subdomain }}.duckdns.org" \
+              --non-interactive
+            echo "Cert ready. Add '${{ github.event.inputs.subdomain }}' to config/domain.json subdomains list and push."
