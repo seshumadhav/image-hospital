@@ -31,8 +31,10 @@ else
       yum install -y python3-pip
     fi
   fi
+  # Remove system certbot so pip3's version is used (they don't share plugin dirs)
+  yum remove -y certbot 2>/dev/null || dnf remove -y certbot 2>/dev/null || true
   pip3 install certbot certbot-dns-duckdns
-  CERTBOT=$(pip3 show certbot | grep Location | awk '{print $2}' | sed 's|/lib/.*||')/bin/certbot
+  CERTBOT=/usr/local/bin/certbot
 fi
 echo "Using certbot at: $CERTBOT"
 
