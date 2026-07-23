@@ -18,9 +18,13 @@ if [ -z "$SUBDOMAIN" ] || [ -z "$EMAIL" ] || [ -z "$TOKEN" ]; then
 fi
 
 echo "Installing certbot and DuckDNS plugin..."
-snap install certbot --classic 2>/dev/null || true
-snap set certbot trust-plugin-with-root=ok
-snap install certbot-dns-duckdns 2>/dev/null || true
+if command -v snap &>/dev/null; then
+  snap install certbot --classic 2>/dev/null || true
+  snap set certbot trust-plugin-with-root=ok
+  snap install certbot-dns-duckdns 2>/dev/null || true
+else
+  pip3 install certbot certbot-dns-duckdns
+fi
 
 echo "Saving credentials..."
 mkdir -p /etc/letsencrypt/duckdns
@@ -40,9 +44,15 @@ certbot certonly \
   --non-interactive
 
 echo "Installing Nginx config..."
-cp "$PROJECT_ROOT/nginx/image-hospital.conf" /etc/nginx/sites-available/image-hospital
-ln -sf /etc/nginx/sites-available/image-hospital /etc/nginx/sites-enabled/image-hospital
-rm -f /etc/nginx/sites-enabled/default
+sed "s|/home/ubuntu/image-hospital|$PROJECT_ROOT|g" \
+  "$PROJECT_ROOT/nginx/image-hospital.conf" > /tmp/image-hospital.conf
+if [ -d /etc/nginx/sites-available ]; then
+  cp /tmp/image-hospital.conf /etc/nginx/sites-available/image-hospital
+  ln -sf /etc/nginx/sites-available/image-hospital /etc/nginx/sites-enabled/image-hospital
+  rm -f /etc/nginx/sites-enabled/default
+else
+  cp /tmp/image-hospital.conf /etc/nginx/conf.d/image-hospital.conf
+fi
 
 echo "Setting up auto-switch cron (every 5 min)..."
 chmod +x "$PROJECT_ROOT/scripts/auto-switch.sh"
