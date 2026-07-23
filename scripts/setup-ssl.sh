@@ -23,6 +23,13 @@ if command -v snap &>/dev/null; then
   snap set certbot trust-plugin-with-root=ok
   snap install certbot-dns-duckdns 2>/dev/null || true
 else
+  if ! command -v pip3 &>/dev/null; then
+    if command -v dnf &>/dev/null; then
+      dnf install -y python3-pip
+    elif command -v yum &>/dev/null; then
+      yum install -y python3-pip
+    fi
+  fi
   pip3 install certbot certbot-dns-duckdns
 fi
 
