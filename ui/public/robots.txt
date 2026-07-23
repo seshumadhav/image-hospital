@@ -1,9 +1,6 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://thegreyward.duckdns.org/sitemap.xml
+Sitemap: https://kallallo.duckdns.org/sitemap.xml
 
-# Crawl-delay (optional, helps prevent server overload)
 Crawl-delay: 1
-
