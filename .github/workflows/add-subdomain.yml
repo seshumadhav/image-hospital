@@ -18,12 +18,12 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/image-hospital
+            cd /home/ec2-user/image-hospital
             git pull
-            certbot certonly \
+            CERTBOT=$([ -f /opt/certbot/bin/certbot ] && echo /opt/certbot/bin/certbot || echo certbot)
+            $CERTBOT certonly \
               --authenticator dns-duckdns \
               --dns-duckdns-credentials /etc/letsencrypt/duckdns/credentials.ini \
               --dns-duckdns-propagation-seconds 60 \
               -d "${{ github.event.inputs.subdomain }}.duckdns.org" \
               --non-interactive
-            echo "Cert ready. Add '${{ github.event.inputs.subdomain }}' to config/domain.json subdomains list and push."

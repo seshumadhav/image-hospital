@@ -3,6 +3,7 @@
 # Scans existing SSL certs and switches to whichever subdomain
 # currently resolves to this server's IP.
 
+CERTBOT=$([ -f /opt/certbot/bin/certbot ] && echo /opt/certbot/bin/certbot || echo certbot)
 CURRENT_LINK="/etc/letsencrypt/live/current-duckdns"
 LOG="/var/log/image-hospital-domain.log"
 

@@ -24,17 +24,16 @@ if command -v snap &>/dev/null; then
   snap install certbot-dns-duckdns 2>/dev/null || true
   CERTBOT=certbot
 else
-  if ! command -v pip3 &>/dev/null; then
+  if ! command -v python3 &>/dev/null; then
     if command -v dnf &>/dev/null; then
-      dnf install -y python3-pip
+      dnf install -y python3
     elif command -v yum &>/dev/null; then
-      yum install -y python3-pip
+      yum install -y python3
     fi
   fi
-  # Remove system certbot so pip3's version is used (they don't share plugin dirs)
-  yum remove -y certbot 2>/dev/null || dnf remove -y certbot 2>/dev/null || true
-  pip3 install certbot certbot-dns-duckdns
-  CERTBOT=/usr/local/bin/certbot
+  python3 -m venv /opt/certbot
+  /opt/certbot/bin/pip install --quiet certbot certbot-dns-duckdns
+  CERTBOT=/opt/certbot/bin/certbot
 fi
 echo "Using certbot at: $CERTBOT"
 
