@@ -50,6 +50,8 @@ sed "s|/home/ubuntu/image-hospital|$PROJECT_ROOT|g" \
   "$PROJECT_ROOT/nginx/image-hospital.conf" > /etc/nginx/conf.d/image-hospital.conf
 
 echo "Setting up auto-switch cron (every 5 min)..."
+dnf install -y cronie 2>/dev/null || yum install -y cronie 2>/dev/null || true
+systemctl enable --now crond 2>/dev/null || true
 chmod +x "$PROJECT_ROOT/scripts/auto-switch.sh"
 (crontab -l 2>/dev/null | grep -v "auto-switch"; echo "*/5 * * * * bash $PROJECT_ROOT/scripts/auto-switch.sh") | crontab -
 
