@@ -22,6 +22,7 @@ if command -v snap &>/dev/null; then
   snap install certbot --classic 2>/dev/null || true
   snap set certbot trust-plugin-with-root=ok
   snap install certbot-dns-duckdns 2>/dev/null || true
+  CERTBOT=certbot
 else
   if ! command -v pip3 &>/dev/null; then
     if command -v dnf &>/dev/null; then
@@ -31,7 +32,9 @@ else
     fi
   fi
   pip3 install certbot certbot-dns-duckdns
+  CERTBOT=$(pip3 show certbot | grep Location | awk '{print $2}' | sed 's|/lib/.*||')/bin/certbot
 fi
+echo "Using certbot at: $CERTBOT"
 
 echo "Saving credentials..."
 mkdir -p /etc/letsencrypt/duckdns
@@ -41,7 +44,7 @@ EOF
 chmod 600 /etc/letsencrypt/duckdns/credentials.ini
 
 echo "Getting SSL cert for ${SUBDOMAIN}.duckdns.org..."
-certbot certonly \
+$CERTBOT certonly \
   --authenticator dns-duckdns \
   --dns-duckdns-credentials /etc/letsencrypt/duckdns/credentials.ini \
   --dns-duckdns-propagation-seconds 60 \
