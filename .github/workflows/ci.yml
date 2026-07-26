@@ -47,5 +47,5 @@ jobs:
           PG_PASSWORD: postgres
           PG_DATABASE: postgres
           PG_TEST_DATABASE: image_hospital_test
-        run: npm test
+        run: npm run test:all
 
