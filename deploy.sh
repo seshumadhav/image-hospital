@@ -41,9 +41,19 @@ echo "🔄 Restarting backend..."
 pm2 restart image-hospital || { echo "⚠️  PM2 restart failed, trying to start..."; pm2 start dist/server.js --name image-hospital || true; }
 
 # Sync Nginx config (repo may have changed it since last deploy)
+# Written to a plain temp file first (no sudo needed) then moved into place
+# with a single sudo call, since a `sudo ... | sudo tee ...` pipe can silently
+# no-op under non-interactive SSH exec sessions without tripping `set -e`.
 echo "🔧 Syncing Nginx config..."
-sudo sed "s|/home/ubuntu/image-hospital|$(pwd)|g" \
-  nginx/image-hospital.conf | sudo tee /etc/nginx/conf.d/image-hospital.conf > /dev/null
+GENERATED_CONF="$(mktemp)"
+sed "s|/home/ubuntu/image-hospital|$(pwd)|g" nginx/image-hospital.conf > "$GENERATED_CONF"
+sudo cp "$GENERATED_CONF" /etc/nginx/conf.d/image-hospital.conf
+rm -f "$GENERATED_CONF"
+if ! cmp -s <(sed "s|/home/ubuntu/image-hospital|$(pwd)|g" nginx/image-hospital.conf) /etc/nginx/conf.d/image-hospital.conf; then
+  echo "❌ Nginx config sync failed: live config does not match repo"
+  exit 1
+fi
+echo "   ✓ Nginx config synced"
 sudo nginx -t || { echo "❌ Nginx config test failed"; exit 1; }
 
 # Reload Nginx
