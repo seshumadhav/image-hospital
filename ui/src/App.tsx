@@ -228,7 +228,7 @@ export const App: React.FC = () => {
         </div>
       )}
       <header className="page-header">
-        <h1 className="page-heading">The Grey Ward</h1>
+        <h1 className="page-heading">Image Hospital</h1>
         <p className="page-caption" style={{ fontStyle: 'italic' }}>Temporary image hosting with automatic expiration</p>
         <p className="page-description" style={{ marginTop: '16px', marginBottom: '0', fontSize: '14px', color: '#888', lineHeight: '1.6' }}>
           Upload images instantly and get shareable links. No registration required.
@@ -269,7 +269,7 @@ export const App: React.FC = () => {
           {filePreview ? (
             // Show file preview when a file is selected
             <div className="abstract-art">
-              <img src={filePreview} alt="Preview" className="art-image" />
+              <img src={filePreview} alt="Preview" className="art-image preview-image" />
             </div>
           ) : (
             // Show abstract art and quote when no file is selected

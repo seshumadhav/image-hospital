@@ -575,6 +575,11 @@ input[type='file']:focus {
   opacity: 0.9;
 }
 
+/* Uploaded file preview should show the image in its real colors */
+.preview-image {
+  filter: none;
+}
+
 .quote-container {
   text-align: center;
   padding: 20px 0;
