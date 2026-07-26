@@ -15,13 +15,13 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
+          username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ec2-user/image-hospital
             git pull
             CERTBOT=$([ -f /opt/certbot/bin/certbot ] && echo /opt/certbot/bin/certbot || echo certbot)
-            $CERTBOT certonly \
+            sudo $CERTBOT certonly \
               --authenticator dns-duckdns \
               --dns-duckdns-credentials /etc/letsencrypt/duckdns/credentials.ini \
               --dns-duckdns-propagation-seconds 60 \
