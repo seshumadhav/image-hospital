@@ -40,6 +40,12 @@ cd ..
 echo "🔄 Restarting backend..."
 pm2 restart image-hospital || { echo "⚠️  PM2 restart failed, trying to start..."; pm2 start dist/server.js --name image-hospital || true; }
 
+# Sync Nginx config (repo may have changed it since last deploy)
+echo "🔧 Syncing Nginx config..."
+sudo sed "s|/home/ubuntu/image-hospital|$(pwd)|g" \
+  nginx/image-hospital.conf | sudo tee /etc/nginx/conf.d/image-hospital.conf > /dev/null
+sudo nginx -t || { echo "❌ Nginx config test failed"; exit 1; }
+
 # Reload Nginx
 echo "🌐 Reloading Nginx..."
 sudo systemctl reload nginx || { echo "❌ Nginx reload failed"; exit 1; }
