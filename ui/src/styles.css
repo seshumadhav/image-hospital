@@ -173,7 +173,7 @@ body {
 }
 
 .subtitle-secondary {
-  font-size: 0.8em;
+  font-size: calc(1em - 2px);
 }
 
 @media (max-width: 480px) {
